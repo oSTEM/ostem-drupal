@@ -1,0 +1,22 @@
+name = oSTEM National
+core = 7.x
+engine = phptemplate
+
+stylesheets[all][] = css/main.css
+stylesheets[only screen and (min-device-width: 320px) and (max-device-width: 480px),
+			only screen and (-webkit-min-device-pixel-ratio: 1.5),
+			only screen and (min--moz-device-pixel-ratio: 1.5),
+			only screen and (-o-min-device-pixel-ratio: 3/2),
+			only screen and (min-device-pixel-ratio: 1.5)
+			][] = css/mobile.css
+stylesheets[print][] = css/print.css
+
+scripts[] = js/site.js
+scripts[] = js/modernizr.min.js
+
+regions[header] = Header
+regions[menubar] = Menu Bar
+regions[content] = Content
+regions[footer] = Footer
+regions[sponsors] = Sponsor Area
+regions[help] = Help

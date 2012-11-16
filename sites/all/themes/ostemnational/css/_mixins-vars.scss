@@ -1,0 +1,89 @@
+@function black($alpha) { @return rgba(0,0,0,$alpha); }
+@function white($alpha) { @return rgba(255,255,255,$alpha); }
+
+$ltgray: rgb(244,244,244);
+$gray: rgb(102,102,102);
+$blue: rgb(0,111,255);
+
+%inline-block {
+	display: inline-block;
+	vertical-align: baseline;
+	zoom: 1;
+	*display: inline;
+	*vertical-align: auto;
+}
+
+@mixin box-shadow($vars) {
+	-moz-box-shadow: $vars;
+	-webkit-box-shadow: $vars;
+	box-shadow: $vars;
+}
+
+@mixin border-radius($vars) {
+	-moz-border-radius: $vars;
+	-webkit-border-radius: $vars;
+	border-radius: $vars;
+}
+
+@mixin border-radius-top-left($vars) {
+	-moz-border-top-left-radius: $vars;
+	-webkit-border-top-left-radius: $vars;
+	border-top-left-radius: $vars;
+}
+
+@mixin border-radius-top-right($vars) {
+	-moz-border-top-right-radius: $vars;
+	-webkit-border-top-right-radius: $vars;
+	border-top-right-radius: $vars;
+}
+
+@mixin border-radius-bottom-left($vars) {
+	-moz-border-bottom-left-radius: $vars;
+	-webkit-border-bottom-left-radius: $vars;
+	border-bottom-left-radius: $vars;
+}
+
+@mixin border-radius-bottom-right($vars) {
+	-moz-border-bottom-right-radius: $vars;
+	-webkit-border-bottom-right-radius: $vars;
+	border-bottom-right-radius: $vars;
+}
+
+@mixin transition($vars) {
+	-webkit-transition: $vars;
+	-moz-transition: $vars;
+	-o-transition: $vars;
+	transition: $vars;
+}
+
+@mixin text-shadow($x, $y, $blur, $color) {
+	text-shadow: $x $y $blur $color;
+	filter: dropshadow(color=$color, offx=$x, offy=$y);
+}
+
+@mixin background-vertical-gradient($stop1color, $stop1loc, $stop2color, $stop2loc, $stop3color:"", $stop3loc:"", $stop4color:"", $stop4loc:"") {
+	background: $stop1color;
+	@if $stop3color == "" {
+		background-image: -moz-linear-gradient(top,  $stop1color $stop1loc, $stop2color $stop2loc);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color));
+		background-image: -webkit-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: -o-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: -ms-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: linear-gradient(to bottom,  $stop1color $stop1loc,$stop2color $stop2loc);
+	} @else if $stop4color == "" {
+		background-image: -moz-linear-gradient(top,  $stop1color $stop1loc, $stop2color $stop2loc, $stop3color $stop3loc);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color), color-stop($stop3loc,$stop3color));
+		background-image: -webkit-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: -o-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: -ms-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: linear-gradient(to bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+	} @else {
+		background-image: -moz-linear-gradient(top,  $stop1color $stop1loc, $stop2color $stop2loc, $stop3color $stop3loc, $stop4color $stop4loc);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color), color-stop($stop3loc,$stop3color), color-stop($stop4loc,$stop4color));
+		background-image: -webkit-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: -o-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: -ms-linear-gradient(top,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: linear-gradient(to bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+	}
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$stop1color}', endColorstr='#{$stop2color}',GradientType=0 );
+}

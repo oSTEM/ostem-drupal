@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function ostem_frontpage_init() {
+
+	$jquery_orbit_path = base_path() . 'sites/all/libraries/jquery.orbit';
+
+	drupal_add_css(drupal_get_path('module', 'ostem_frontpage') . '/jquery.orbit/jquery.orbit.min.css');
+	drupal_add_js(drupal_get_path('module', 'ostem_frontpage') . '/jquery.orbit/jquery.orbit.min.js');
+	
+	drupal_add_js('
+		jQuery(document).ready(function($) {
+			$("#homepage-feature").orbit({directionalNav: false, bullets: true});
+		});
+	', 'inline');
+
+}
+/**
+ * Implements hook_menu().
+ */
+function ostem_frontpage_menu() {
+
+	$items['home'] = array(
+		'title' => 'Home',
+		'page callback' => 'ostem_frontpage_view',
+		'access callback' => TRUE,
+		'menu_name' => 'main_menu',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	$items['admin/config/ostem'] = array(
+		'title' => 'oSTEM Module Settings',
+		'position' => 'left',
+		'weight' => -100,
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('administer site configuration'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	);
+
+	$items['admin/config/ostem/ostem_frontpage'] = array(
+		'title' => 'Home Page Settings',
+		'description' => 'Manage settings for the oSTEM National Org homepage.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('ostem_frontpage_admin'),
+		'access arguments' => array('administer ostem_frontpage settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+
+}
+
+function ostem_frontpage_admin() {
+	$form = array();
+
+	$result = variable_get('ostem_frontpage_body', '');
+
+	$form['ostem_frontpage_body'] = array(
+		'#type' => 'text_format',
+		'#title' => t('Homepage Body'),
+		'#default_value' => empty($result['value']) ? '' : $result['value'],
+		'#description' => t("This text will appear adjacent to the rotating images on the homepage."),
+	);
+
+	return system_settings_form($form);
+}
+
+/**
+ * Implements hook_view().
+ */
+function ostem_frontpage_view($arg = null) {
+
+	return ostem_frontpage_html();
+
+}
+
+function ostem_frontpage_nodes_list() {
+
+	$query = db_select('node', 'n');
+	$query
+	->condition('n.type', 'homepage_photo')
+	->condition('n.status', 1)
+	->orderBy('n.sticky', 'DESC')
+	->orderBy('n.created', 'ASC')
+	->fields('n', array('title', 'nid',));
+	$results = $query->execute();
+
+	return $results;
+
+}
+
+function ostem_frontpage_html() {
+
+	$photos = ostem_frontpage_nodes_list();
+
+	$html = '<div id="homepage-feature-wrapper"><div id="homepage-feature">';
+
+	foreach($photos as $i => $photo) {
+
+		$node = node_load($photo->nid);
+		$image = $node->field_image['und'][0];
+		
+		$html .= theme_image(array(
+								'path' => $image['uri'],
+								'alt' => $image['alt'],
+								'width' => $image['width'],
+								'height'=> $height['height'],
+								));
+		
+	}
+
+	$html .= '</div></div>';
+	
+	$frontpage_body = variable_get('ostem_frontpage_body', '');
+	
+	$html .= '<div id="homepage-body">' . $frontpage_body['value'] . '</div>';
+
+	return $html;
+
+}

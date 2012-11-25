@@ -107,7 +107,7 @@ function ostem_frontpage_html() {
 								'path' => $image['uri'],
 								'alt' => $image['alt'],
 								'width' => $image['width'],
-								'height'=> $height['height'],
+								'height'=> $image['height'],
 								));
 		
 	}

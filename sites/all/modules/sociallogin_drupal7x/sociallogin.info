@@ -1,0 +1,7 @@
+name = Social Login
+description = Social Login module - adds social login on a Drupal site!
+package = sociallogin
+core = 7.x
+files[] = sociallogin.loginradius.inc
+stylesheets[all][] = sociallogin.css
+configure = admin/config/people/sociallogin

@@ -1,0 +1,472 @@
+<?php
+
+/**
+ * @file
+ * Implement sociallogin support for Drupal
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * Responed to url handling for sociallogin module.
+ */
+function sociallogin_menu() {
+  $items['user/%user/sociallogin'] = array(
+    'title' => 'Social Login identities',
+    'page callback' => 'sociallogin_user_identities',
+    'page arguments' => array(1),
+    'access callback' => 'user_edit_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'sociallogin.pages.inc',
+  );
+  $items['user/%user/sociallogin/delete'] = array(
+    'title' => 'Delete Social Login',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sociallogin_user_delete_form', 1),
+    'access callback' => 'user_edit_access',
+    'access arguments' => array(1),
+    'file' => 'sociallogin.pages.inc',
+  );
+  $items['admin/config/people/sociallogin'] = array(
+    'title' => 'Social Login',
+    'description' => 'Configure setting for Social Login',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sociallogin_admin_settings'),
+    'access arguments' => array('administer social login'),
+    'weight' => -4,
+    'file' => 'sociallogin.admin.inc',
+  );
+  $items['admin/config/people/sociallogin/settings'] = array(
+    'title' => 'Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sociallogin_admin_settings'),
+    'access arguments' => array('administer social login'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+    'file' => 'sociallogin.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ *
+ * Respond to Define administrative paths.
+ */
+function sociallogin_admin_paths() {
+  $paths = array(
+    'user/*/sociallogin' => TRUE,
+    'user/*/sociallogin/delete/ *' => TRUE,
+  );
+  return $paths;
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * Responed to Define user permissions.
+ */
+function sociallogin_permission() {
+  $permissions = array(
+    'administer social login' => array(
+      'title' => t('Administer Social Login settings'),
+      'restrict access' => TRUE,
+    ),
+  );
+  return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function sociallogin_theme() {
+  return array(
+    'sociallogin_popup' => array(
+      'variables' => array(
+        'msg' => NULL,
+      ),
+    ),
+    'sociallogin_links' => array(
+      'variables' => array(
+        'params' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_help().
+ *
+ * Respond to Provide online user help links.
+ *
+ * @param string $path
+ *   The router menu path, as defined in hook_menu.
+ */
+function sociallogin_help($path) {
+  switch ($path) {
+    case 'user/%/sociallogin':
+      $loginradius_link = l(t('LoginRadius'), 'http://www.LoginRadius.com/', array('attributes' => array('target' => '_blank')));
+      $output = '';
+      $output .= '<p>' . t('This social login module is developed by !loginradius which is a Software As A Service (SaaS).sociallogin plugin enables social login on a Drupal website letting users log in through their existing IDs such as Facebook, Twitter, Google, Yahoo and over 15 more! Other than social login, sociallogin plugin also include User Profile Data and Social Analytics. see the !loginradius', array('!loginradius' => $loginradius_link)) . '</p>';
+      $output .= '<p>' . t('For use sociallogin on Your site you must have an account on LoginRadius.After create account you can implement LoginRadius on your any type of site.sociallogin provide login with many social network sites user can login with their exist account. which helps increase the user base, and offers convenience and security to the users.  making the registration process even easier. On logging in, users are presented with the option of choosing one of the providers; sociallogin then communicates with the provider, asking it to verify the identity of the user. If the user is logged into their provider, sociallogin communicates back to your site, verifying the user. If they are not logged in, the provider will ask their user for their login and password.if user already logged in releted provider then sociallogin not ask for login process and the process will ends easily') . '</p>';
+      return $output;
+    case 'admin/help#sociallogin':
+      $loginradius_link = l(t('LoginRadius'), 'http://www.LoginRadius.com/', array('attributes' => array('target' => '_blank')));
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This social login module is developed by LoginRadius which is a Software As A Service (SaaS).sociallogin plugin enables social login on a Drupal website letting users log in through their existing IDs such as Facebook, Twitter, Google, Yahoo and over 15 more! Other than social login, sociallogin plugin also include User Profile Data and Social Analytics. Please visit the !loginradius.', array('!loginradius' => $loginradius_link)) . '</p>';
+      $items = array(
+        t('Social login'),
+        t('User profile data'),
+        t('Social analytics'),
+        t('Eliminating registration process'),
+        t('Syncronize social login with traditional login'),
+      );
+      $output .= theme('item_list', array('items' => $items, 'title' => t('Use')));
+      $items = array(
+        l(t('Drupal live demo'), 'http://drupaldemo.loginradius.com/', array('attributes' => array('target' => '_blank'))),
+        l(t('Drupal Plugin Documentations'), 'http://www.loginradius.com/developers/Plugins/Drupal', array('attributes' => array('target' => '_blank'))),
+        l(t('LoginRadius'), 'http://www.LoginRadius.com/', array('attributes' => array('target' => '_blank'))),
+        l(t('Other live demo'), 'http://www.loginradius.com/loginradius/demo.aspx', array('attributes' => array('target' => '_blank'))),
+        l(t('Developers'), 'http://www.loginradius.com/developers/gettingstarted/', array('attributes' => array('target' => '_blank'))),
+        l(t('LoginRadius blog'), 'http://blog.loginradius.com/', array('attributes' => array('target' => '_blank'))),
+        l(t('LoginRadius video'), 'http://www.youtube.com/LoginRadius', array('attributes' => array('target' => '_blank'))),
+      );
+      $output .= theme('item_list', array('items' => $items, 'title' => t('Important links')));
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Respond to altering user login block.
+ */
+function sociallogin_form_user_login_block_alter(&$form, &$form_state) {
+  if (variable_get('sociallogin_attach_login_form', 0)) {
+    sociallogin_user_login_form_alter($form, $form_state);
+    sociallogin_user_register_submit($form, $form_state);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for sociallogin_form_user_login_alter().
+ * 
+ * Respond to add a sociallogin link on user login form.
+ */
+function sociallogin_form_user_login_alter(&$form, &$form_state) {
+  if (variable_get('sociallogin_attach_login_form', 0)) {
+    sociallogin_user_login_form_alter($form, $form_state);
+    sociallogin_user_register_submit($form, $form_state);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Respond to add a sociallogin link on user register form.
+ */
+function sociallogin_form_user_register_form_alter(&$form, &$form_state) {
+  if (variable_get('sociallogin_attach_login_form', 0)) {
+    // Add sociallogin link to registration form.
+    sociallogin_user_login_form_alter($form, $form_state);
+    sociallogin_user_register_submit($form, $form_state);
+  }
+}
+
+/**
+ * Respond to altering user login/register form.
+ *
+ * @param array $form
+ *   Nested array of form elements that comprise the form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function sociallogin_user_login_form_alter(&$form, &$form_state) {
+  global $user, $base_url;
+  $api_key = variable_get('sociallogin_apikey');
+  $secret = variable_get('sociallogin_apisecret');
+  if (isset($api_key)) {
+    $obj_auth = new LoginRadiusAuth();
+    $userauth = $obj_auth->auth($api_key, $secret);
+    if (isset($obj_auth->error)) {
+      drupal_set_message(t('LoginRadius connection error: @error. <br/> Please refer to the admininstrator.', array('@error' => $obj_auth->error)), 'error');
+      return ;
+    }
+  }
+  else {
+    return ;
+  }
+  
+  $params['http'] = $userauth->IsHttps == 1 ? "https://" : "http://";
+  $params['api_key'] = $api_key;
+  $params['loc'] = drupal_encode_path(url($_GET['q'], array('absolute' => TRUE)));
+  $params['ifwidth'] = $userauth->width ? $userauth->width : variable_get('sociallogin_popup_def_ifwidth', 169);
+  $params['ifheight'] = $userauth->height ? $userauth->height : variable_get('sociallogin_popup_def_ifheight', 50);
+
+  $form['sociallogin_links'] = array(
+    '#type' => 'item',
+    '#title' => variable_get('sociallogin_label_string'),
+    '#markup' => theme('sociallogin_links', $params),
+    '#attributes' => array('class' => array('sociallogin-links')),
+    '#weight' => 102,
+  );
+}
+
+/**
+ * Function that process login functionality.
+ */
+function sociallogin_user_register_submit($form, &$form_state) {
+  global $user;
+  $secret = variable_get('sociallogin_apisecret');
+  // Get sociallogin variable.
+  $lrdata = array();
+  $obj = new LoginRadius();
+  $userprofile = $obj->getapi($secret);
+  if ($obj->isauthenticated == TRUE) {
+    $lrdata['fullname'] = $userprofile->FullName;
+    $lrdata['profilename'] = $userprofile->ProfileName;
+    $lrdata['fname'] = $userprofile->FirstName;
+    $lrdata['lname'] = $userprofile->LastName;
+    $lrdata['id'] = $userprofile->ID;
+    $lrdata['provider'] = $userprofile->Provider;
+    $lrdata['nickname'] = $userprofile->NickName;
+    if (sizeof($userprofile->Email) > 0) {
+      $lrdata['email'] = $userprofile->Email[0]->Value;
+    }
+    else {
+      $lrdata['email'] = NULL;
+    }
+    if ((empty($lrdata['email']) && variable_get('sociallogin_email_required') == 0) || !empty($lrdata['email'])) {
+      if (empty($lrdata['email']) && variable_get('sociallogin_email_required') == 0) {
+        switch ($lrdata['provider']) {
+          case 'twitter':
+            $lrdata['email'] = $lrdata['id'] . '@' . $lrdata['provider'] . '.com';
+            break;
+
+          case 'linkedin':
+            $lrdata['email'] = $lrdata['id'] . '@' . $lrdata['provider'] . '.com';
+            break;
+
+          default:
+            $email_id = drupal_substr($lrdata['id'], 7);
+            $email_id2 = str_replace("/", "_", $email_id);
+            $lrdata['email'] = str_replace(".", "_", $email_id2) . '@' . $lrdata['provider'] . '.com';
+            break;
+        }
+      }
+      sociallogin_adduser($lrdata, $form, $form_state);
+    }
+    if (variable_get('sociallogin_email_required', 1) && $lrdata['email'] == '') {
+      $account = user_external_load($lrdata['id']);
+      if (isset($account->uid)) {
+        if ($account->login) {
+          // Check if user is blocked.
+          $state['values']['name'] = $account->name;
+          user_login_name_validate(array(), $state);
+          if (!form_get_errors()) {
+            $form_state['uid'] = $account->uid;
+            user_login_submit(array(), $form_state);
+          }
+        }
+        drupal_redirect_form($form, $redirect = NULL);
+      }
+      else {
+        $_SESSION['lrdata'] = $lrdata;
+        print theme('sociallogin_popup');
+      }
+    }
+  }
+  // Fetch data from submitted.
+  if (isset($_REQUEST['sociallogin_emailclick'])) {
+    $lrdata = $_SESSION['lrdata'];
+    $lrdata['email'] = urldecode($_REQUEST['email']);
+    if (!valid_email_address($lrdata['email'])) {
+      drupal_set_message(t("This email already registered or invalid. Please choose another one."), 'error');
+      $form_state['redirect'] = '';
+      return;
+    }
+    else {
+      $check_mail = user_load_by_mail($lrdata['email']);
+      if (!empty($check_mail)) {
+        drupal_set_message(t("This email already registered or invalid. Please choose another one."), 'error');
+        $form_state['redirect'] = '';
+        return;
+      }
+      else {
+        $lrdata = $_SESSION['lrdata'];
+        $lrdata['email'] = urldecode($_REQUEST['email']);
+        sociallogin_adduser($lrdata, $form, $form_state);
+      }
+    }
+  }
+}
+
+/**
+ * Function for adding social user.
+ */
+function sociallogin_adduser($lrdata, $form, &$form_state) {
+  if (isset($lrdata['id']) && !empty($lrdata['id'])) {
+    if (!empty($lrdata['email'])) {
+      $email = $lrdata['email'];
+    }
+    if (!empty($lrdata['fname']) && !empty($lrdata['lname'])) {
+      $username = $lrdata['fname'] . ' ' . $lrdata['lname'];
+      $fname = $lrdata['fname'];
+      $lname = $lrdata['lname'];
+    }
+    elseif (!empty($lrdata['fullname'])) {
+      $username = $lrdata['fullname'];
+      $fname = $lrdata['fullname'];
+      $lname = $lrdata['fullname'];
+    }
+    elseif (!empty($lrdata['profilename'])) {
+      $username = $lrdata['profilename'];
+      $fname = $lrdata['profilename'];
+      $lname = $lrdata['profilename'];
+    }
+    elseif (!empty($lrdata['nickname'])) {
+      $username = $lrdata['nickname'];
+      $fname = $lrdata['nickname'];
+      $lname = $lrdata['nickname'];
+    }
+    elseif (!empty($email)) {
+      $user_name = explode('@', $email);
+      $username = $user_name[0];
+      $fname = str_replace("_", " ", $user_name[0]);
+      $lname = str_replace("_", " ", $user_name[0]);
+    }
+    else {
+      $username = $lrdata['id'];
+      $fname = $lrdata['id'];
+      $lname = $lrdata['id'];
+    }
+    // Look for user with username match.
+    $nameexists = TRUE;
+    $index = 0;
+    $user_name = $username;
+    while ($nameexists == TRUE) {
+      if (user_load_by_name($user_name)) {
+        $index++;
+        $user_name = $username . $index;
+      }
+      else {
+        $nameexists = FALSE;
+      }
+    }
+    $username = $user_name;
+    $new_user = array(
+      'name' => $username,
+      'pass' => user_password(),
+      'mail' => $email,
+      'init' => $email,
+      'field_first_name' => array(LANGUAGE_NONE => array(array('value' => $fname))),
+      'field_last_name' => array(LANGUAGE_NONE => array(array('value' => $lname))),
+      'status' => 1,
+      'access' => REQUEST_TIME,
+      'roles' => array(DRUPAL_AUTHENTICATED_RID => TRUE),
+    );
+    $account = user_external_load($lrdata['id']);
+    if (!$account) {
+      $account = user_load_by_mail($email);
+    }
+    if (isset($account->uid)) {
+      if ($account->login) {
+        // Check if user is blocked.
+        $state['values']['name'] = $account->name;
+        user_login_name_validate(array(), $state);
+        if (!form_get_errors()) {
+          $form_state['uid'] = $account->uid;
+          user_login_submit(array(), $form_state);
+        }
+      }
+      drupal_redirect_form($form, $redirect = NULL);
+    }
+    else {
+      $account = user_save(NULL, $new_user);
+      user_set_authmaps($account, array('authname_sociallogin' => $lrdata['id']));
+      if (!$account) {
+        drupal_set_message(t("Error saving user account."), 'error');
+        $form_state['redirect'] = '';
+        return;
+      }
+      watchdog('sociallogin', 'New user: %name (%email).', array('%name' => $username, '%email' => $email), WATCHDOG_NOTICE, l(t('edit'), 'user/' . $account->uid . '/edit'));
+      $form_state['user'] = $account;
+      $form_state['values']['uid'] = $account->uid;
+      $form_state['uid'] = $account->uid;
+      user_login_submit(array(), $form_state);
+      unset($_SESSION['lrdata']);
+      drupal_redirect_form($form, $redirect = NULL);
+    }
+  }
+  $form_state['redirect'] = '';
+}
+
+/**
+ * Function that showing popup if social provider not provide email.
+ */
+function theme_sociallogin_popup() {
+  $output = '<div id="popupouter"><div class="popupinner">';
+  $output .= '<div class="textmatter">';
+  $output .= "<b>" . t('Please enter your email address to proceed.') . "</b>";
+  $output .= '</div><div style = "margin:20px;">';
+  $output .= render(drupal_get_form('sociallogin_popup_form'));
+  $output .= '</div><div class="textdiv">Powered by <span class="span">Login</span><span class="span1">Radius</span></div>';
+  $output .= '</div></div>';
+  return $output;
+}
+
+/**
+ * Form that appear in popup form.
+ */
+function sociallogin_popup_form($form, &$form_state) {
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#name' => 'email',
+    '#attributes' => array(
+      '#id' => 'email',
+      'class' => array('inputtxt'),
+    ),
+  );
+  $form['sociallogin_emailclick'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send'),
+    '#name' => 'sociallogin_emailclick',
+    '#attributes' => array(
+      'id' => 'sociallogin_emailclick',
+      'class' => array('inputbutton'),
+    ),
+  );
+  $form['sociallogin_emailclick_cancel'] = array(
+    '#type' => 'button',
+    '#value' => t('Cancel'),
+    '#name' => 'sociallogin_emailclick_cancel',
+    '#attributes' => array(
+      'id' => 'sociallogin_emailclick_cancel',
+      'class' => array('inputbutton'),
+      'onClick' => 'history.back(0);',
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Theme social links.
+ * 
+ * @param array $params
+ *   An array containing the keys:
+ *   - 'http': Connection protocol, http or https.
+ *   - 'api_key': API Key.
+ *   - 'loc': Current URL.
+ *   - 'ifwidth': Width for iframe.
+ *   - 'ifheight': Height for iframe.
+ *
+ * @return string
+ */
+function theme_sociallogin_links($params) {
+  $output = '<iframe src = "' . $params['http'] .
+    'hub.loginradius.com/Control/PluginSlider.aspx?apikey=' . $params['api_key'] . '&callback=' . $params['loc'] . '" ' .
+    'width = "' . $params['ifwidth'] . '" height = "' . $params['ifheight'] . '" frameborder = "0" scrolling = "no" ></iframe>';
+  return $output;
+}

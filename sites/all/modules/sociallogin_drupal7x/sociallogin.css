@@ -1,0 +1,110 @@
+#user-login-form .sociallogin-links,
+#user-login .sociallogin-links {
+  overflow: hidden;
+  padding-bottom: 15px;
+  padding-left: 0;
+}
+#user-login-form .sociallogin-links li,
+#user-login .sociallogin-links li {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+#user-register-form .sociallogin-links,
+#user-register .sociallogin-links {
+  overflow: hidden;
+  padding-bottom: 15px;
+  padding-left: 0;
+}
+#user-register-form .sociallogin-links li,
+#user-register .sociallogin-links li {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+#popupouter {
+  background: #f3f3f3;
+  border-radius: 4px;
+  height: 188px;
+  left: 50%;
+  margin-left: -185px;
+  margin-top: -96px;
+  -moz-border-radius: 4px;
+  padding: 1px 0px 1px 0px;
+  position: absolute;
+  top: 50%;
+  width: 370px;
+  -webkit-border-radius: 4px;
+  z-index: 9999;
+}
+#popupinner {
+  background: #ffffff;
+  border-radius: 4px;
+  margin: 10px;
+  -moz-border-radius: 4px;
+  padding: 10px 8px 4px 8px;
+  -webkit-border-radius: 4px;
+}
+#textmatter {
+  color: #666666;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
+}
+.inputtxt {
+  border: #e5e5e5 1px solid;
+  color: #a8a8a8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  height: 27px;
+  margin: 5px 0px 15px 0px;
+  width: 280px;
+}
+.inputbutton {
+  background: #f3f3f3;
+  border: #dcdcdc 1px solid;
+  border-radius: 2px;
+  color: #6e6e6e;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  margin: 0px 8px 0px 0px;
+  -moz-border-radius: 2px;
+  padding: 6px 7px 6px 8px;
+  text-decoration: none;
+  -webkit-border-radius: 2px;
+}
+.inputbutton:hover {
+  background: #f3f3f3;
+  border: #00ccff 1px solid;
+  border-radius: 2px;
+  box-shadow: 0px 0px  4px #8a8a8a;
+  color: #000000;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  khtml-border-radius: 2px;
+  margin: 0px 8px 0px 0px;
+  -moz-border-radius: 2px;
+  -moz-box-shadow: 0px 0px  4px #8a8a8a;
+  padding: 6px 7px 6px 8px;
+  text-decoration: none;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 0px  4px #8a8a8a;
+}
+#textdiv {
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  text-align: right;
+}
+.span {
+  color: #00ccff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+.span1 {
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}

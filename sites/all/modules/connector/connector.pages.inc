@@ -222,13 +222,35 @@ function connector_user_sync_form($form, &$form_state, $account, $cid) {
   // We put access on false and explictly turn access on.
   $children_keys = element_children($form);
   foreach ($children_keys as $key) {
-    $form[$key]['#access'] = FALSE;
+    if ($key == 'account') {
+      $account_children_keys = element_children($form['account']);
+      foreach ($account_children_keys as $account_key) {
+        $form['account'][$account_key]['#access'] = FALSE;
+      }
+    }
+    else {
+      $form[$key]['#access'] = FALSE;
+    }
   }
 
   // only allow fields we can sync.
   foreach ($info as $field) {
     if (isset($field['sync']) && $field['sync']) {
-      $form[$field['sync']]['#access'] = TRUE;
+      if (isset($form['account'][$field['sync']])) {
+        $form['account'][$field['sync']]['#access'] = TRUE;
+      }
+      elseif (isset($form[$field['sync']])) {
+        $form[$field['sync']]['#access'] = TRUE;
+      }
+    }
+  }
+
+  // For some fields we need to supply the current password.
+  if (isset($form['account']['current_pass_required_values']['#value'])) {
+    foreach ($form['account']['current_pass_required_values']['#value'] as $key => $value) {
+      if (isset($form['account'][$key]['#access']) && $form['account'][$key]['#access']) {
+        $form['account']['current_pass']['#access'] = TRUE;
+      }
     }
   }
 
@@ -253,7 +275,12 @@ function connector_user_sync_form_first_submit($form, &$form_state) {
 }
 
 /**
- * TODO mappen van de velden.
+ * TODO finish field mapping.
+ *
+ * For now, this does only simple text mapping.
+ * We need to find another solution for this, possibly Feeds?
+ * HOOK_connector_prefill_user_form_alter enables custom modules to do better
+ * :) good luck!
  */
 function _connector_prefill_user_form(&$form, $info) {
   foreach ($info as $field) {
@@ -262,6 +289,12 @@ function _connector_prefill_user_form(&$form, $info) {
       if (isset ($form[ ($field['sync']) ]['#language']) && isset($form[ ($field['sync']) ][ ($form[ ($field['sync']) ]['#language']) ][0]['value'])) {
         $form[ ($field['sync']) ][ ($form[ ($field['sync']) ]['#language']) ][0]['value']['#default_value'] = $field['value'];
       }
+
+      // simple text type in account.
+      elseif (isset ($form['account'][ ($field['sync']) ]['#default_value'])) {
+        $form['account'][ ($field['sync']) ]['#default_value'] = $field['value'];
+      }
     }
   }
+  drupal_alter('connector_prefill_user_form', $form, $info);
 }

@@ -1,6 +1,6 @@
 <?php
 
-drupal_add_css('http://fonts.googleapis.com/css?family=Lato:300,300italic,700,700italic', array('type' => 'external'));
+drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300italic,700,700italic', array('type' => 'external'));
 
 function getPageID($is_front) {
   if ($is_front) {

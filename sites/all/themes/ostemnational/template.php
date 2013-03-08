@@ -28,7 +28,6 @@ function getBodyID($is_front = false) {
 function ostemnational_form_alter(&$form, &$form_state, $form_id) {
 	if($form_id == 'connector_button_form') {
 		foreach($form as $key => $form_child) {
-			if($i == 1)  $form[$key]['#attributes']['class'][] = 'first';
 			if(array_key_exists('connector', $form_child)) $form[$key]['#value'] = 'Login with ' . $form_child['connector']['#value']['title'];
 		}
 	}
@@ -40,7 +39,7 @@ function ostemnational_connector_buttons($variables) {
   if (!$form['#has_buttons']) return NULL;
   $output = '';
   $buttons = array();
-  $i == 0; error_log('custom connector buttons');
+  $i == 0;
   foreach (element_children($form) as $key) {
     if ($form[$key]['#type'] == 'submit') {
       $i++;

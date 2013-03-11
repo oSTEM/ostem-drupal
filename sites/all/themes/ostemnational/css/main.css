@@ -277,6 +277,13 @@ a {
     margin: 0;
     padding: 0; }
 
+form .field-type-datetime fieldset legend {
+  font-weight: bold; }
+form .field-type-datetime fieldset label {
+  display: none; }
+form .field-type-datetime .date-padding {
+  padding: 0; }
+
 header {
   background: #f4f4f4;
   padding: 10px 0; }
@@ -612,6 +619,51 @@ header {
   list-style: none;
   padding-left: 0; }
 
+#connector-button-form {
+  margin: 15px 0; }
+  #connector-button-form:before {
+    content: "Connect your account with:";
+    display: block; }
+  #connector-button-form .connector-button-wrapper {
+    display: block;
+    margin: 0;
+    padding: 0 20px; }
+    #connector-button-form .connector-button-wrapper.oauthconnector-google {
+      background: url(../images/social-icons/google.png) no-repeat left center;
+      padding-left: 52px; }
+    #connector-button-form .connector-button-wrapper.oauthconnector-facebook {
+      background: url(../images/social-icons/facebook.png) no-repeat left center;
+      padding-left: 52px; }
+    #connector-button-form .connector-button-wrapper.oauthconnector-twitter {
+      background: url(../images/social-icons/twitter.png) no-repeat left center;
+      padding-left: 52px; }
+    #connector-button-form .connector-button-wrapper.oauthconnector-linkedin {
+      background: url(../images/social-icons/linkedin.png) no-repeat left center;
+      padding-left: 52px; }
+    #connector-button-form .connector-button-wrapper input, #connector-button-form .connector-button-wrapper button {
+      height: 48px;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      color: #006fff;
+      font-weight: normal;
+      font-family: "Lato",Segoe,Calibiri,sans-serif; }
+      #connector-button-form .connector-button-wrapper input:hover, #connector-button-form .connector-button-wrapper button:hover {
+        text-decoration: underline; }
+
+.block-connector {
+  width: 35%;
+  float: right;
+  border-left: 2px solid black;
+  margin-left: 50px; }
+  .block-connector #connector-button-form {
+    margin-left: 30px; }
+    .block-connector #connector-button-form:before {
+      content: "Or login with:";
+      margin: 0 20px 20px;
+      font-weight: bold; }
+
 footer {
   width: 100%;
   background: #f4f4f4;
@@ -635,25 +687,6 @@ footer {
           color: #006fff; }
         footer > .region .menu li.first, footer > .region .front #main #homepage-body ul li.first, .front #main #homepage-body footer > .region ul li.first {
           border-left: none; }
-    footer > .region #connector-button-form {
-      text-align: center; }
-      footer > .region #connector-button-form .connector-button-wrapper {
-        display: inline-block;
-        margin: 0;
-        padding: 0 0.5em;
-        border-left: 1px solid #666666; }
-        footer > .region #connector-button-form .connector-button-wrapper.first {
-          border-left: none; }
-        footer > .region #connector-button-form .connector-button-wrapper input, footer > .region #connector-button-form .connector-button-wrapper button {
-          margin: 0;
-          padding: 0;
-          background: none;
-          border: none;
-          color: #006fff;
-          font-weight: normal;
-          font-family: "Lato",Segoe,Calibiri,sans-serif; }
-          footer > .region #connector-button-form .connector-button-wrapper input:hover, footer > .region #connector-button-form .connector-button-wrapper button:hover {
-            text-decoration: underline; }
   footer #sponsor_wrap {
     width: 100%;
     background: #666666;

@@ -28,7 +28,9 @@ function getBodyID($is_front = false) {
 function ostemnational_form_alter(&$form, &$form_state, $form_id) {
 	if($form_id == 'connector_button_form') {
 		foreach($form as $key => $form_child) {
-			if(array_key_exists('connector', $form_child)) $form[$key]['#value'] = 'Login with ' . $form_child['connector']['#value']['title'];
+			if(is_array($form_child) && array_key_exists('connector', $form_child)) {
+				$form[$key]['#value'] = $form_child['connector']['#value']['title'];
+			}
 		}
 	}
 }
@@ -53,4 +55,47 @@ function ostemnational_connector_buttons($variables) {
   }
   return drupal_render_children($form);
 
+}
+
+function ostemnational_connector_connections_list_tableselect($variables) {
+  $form = $variables['form'];
+  $header = array('');
+
+  foreach (element_children($form['header']) as $key) {
+    if($key != 'cid') $header[] = drupal_render($form['header'][$key]);
+  }
+
+  $rows = array();
+  $number_of_rows = 0;
+  if (!empty($form['connector'])) {
+    foreach (element_children($form['connector']) as $key) {
+      $row = array();
+      $row[] = drupal_render($form['primary'][$key]);
+      $row[] = drupal_render($form['connector'][$key]);
+      //$row[] = drupal_render($form['cid'][$key]);
+      $row[] = drupal_render($form['operations'][$key]);
+      $rows[] = $row;
+      $number_of_rows++;
+    }
+
+    if ($number_of_rows == 1) {
+      unset($rows[0][0]);
+      unset($header[0]);
+    }
+  }
+  else {
+    $rows[] = array(array(
+        'data' => t('No connections available.'),
+        'colspan' => '6',
+      ));
+  }
+
+  $output = theme('table', array('header' => $header, 'rows' => $rows));
+  if ($number_of_rows < 2) {
+    unset($form['actions']);
+  }
+
+  //$output .= drupal_render_children($form);
+
+  return $output;
 }

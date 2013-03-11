@@ -103,6 +103,27 @@ a {
 	}
 }
 
+form {
+	
+	.field-type-datetime {
+	
+		fieldset {
+			
+			legend {
+				font-weight: bold;
+			}
+			
+			label {
+				display: none;
+			}
+		}
+		
+		.date-padding {
+			padding: 0;
+		}
+	}
+}
+
 header {
 	background: $ltgray;
 	padding: 10px 0;
@@ -437,6 +458,76 @@ header {
 	}
 }
 
+#connector-button-form {
+	margin: 15px 0;
+	
+	&:before {
+		content: "Connect your account with:";
+		display: block;
+	}
+	
+	.connector-button-wrapper {
+		display: block;
+		margin: 0;
+		padding: 0 20px;
+		
+		&.oauthconnector-google {
+			background: url(../images/social-icons/google.png) no-repeat left center;
+			padding-left: 52px;
+		}
+		&.oauthconnector-facebook {
+			background: url(../images/social-icons/facebook.png) no-repeat left center;
+			padding-left: 52px;
+		}
+		&.oauthconnector-twitter {
+			background: url(../images/social-icons/twitter.png) no-repeat left center;
+			padding-left: 52px;
+		}
+		&.oauthconnector-linkedin {
+			background: url(../images/social-icons/linkedin.png) no-repeat left center;
+			padding-left: 52px;
+		}
+		
+		input, button {
+			height: 48px;
+			margin: 0;
+			padding: 0;
+			background: none;
+			border: none;
+			color: $blue;
+			font-weight: normal;
+			font-family: "Lato",Segoe,Calibiri,sans-serif;
+			
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.block-connector {
+	width: 35%;
+	float: right;
+	border-left: 2px solid black;
+	margin-left: 50px;
+	
+	#connector-button-form {
+		//text-align: center;
+		//margin: 0;
+		margin-left: 30px;
+		
+		&:before {
+			content: "Or login with:";
+			margin: 0 20px 20px;
+			font-weight: bold;
+		}
+		
+		.connector-button-wrapper {
+			//display: inline-block;
+		}
+	}
+}
+
 footer {
 	width: 100%;
 	background: $ltgray;
@@ -466,35 +557,6 @@ footer {
 				
 				&.first {
 					border-left: none;
-				}
-			}
-		}
-		
-		#connector-button-form {
-			text-align: center;
-			
-			.connector-button-wrapper {
-				display: inline-block;
-				margin: 0;
-				padding: 0 .5em;
-				border-left: 1px solid $gray;
-				
-				&.first {
-					border-left: none;
-				}
-				
-				input, button {
-					margin: 0;
-					padding: 0;
-					background: none;
-					border: none;
-					color: $blue;
-					font-weight: normal;
-					font-family: "Lato",Segoe,Calibiri,sans-serif;
-					
-					&:hover {
-						text-decoration: underline;
-					}
 				}
 			}
 		}

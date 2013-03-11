@@ -41,7 +41,7 @@ function ostemnational_connector_buttons($variables) {
   if (!$form['#has_buttons']) return NULL;
   $output = '';
   $buttons = array();
-  $i == 0;
+  $i = 0;
   foreach (element_children($form) as $key) {
     if ($form[$key]['#type'] == 'submit') {
       $i++;

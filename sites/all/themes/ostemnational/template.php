@@ -72,7 +72,6 @@ function ostemnational_connector_connections_list_tableselect($variables) {
       $row = array();
       $row[] = drupal_render($form['primary'][$key]);
       $row[] = drupal_render($form['connector'][$key]);
-      //$row[] = drupal_render($form['cid'][$key]);
       $row[] = drupal_render($form['operations'][$key]);
       $rows[] = $row;
       $number_of_rows++;
@@ -95,7 +94,11 @@ function ostemnational_connector_connections_list_tableselect($variables) {
     unset($form['actions']);
   }
 
-  //$output .= drupal_render_children($form);
-
   return $output;
+}
+
+function ostemnational_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+	foreach($data['tabs'][0]['output'] as $key => $item) {
+		if($item['#link']['path'] == 'user/%/connections') $data['tabs'][0]['output'][$key]['#link']['title'] = 'Social Media Connections';
+	}
 }

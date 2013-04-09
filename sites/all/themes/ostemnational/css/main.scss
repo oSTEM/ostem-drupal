@@ -469,6 +469,10 @@ header {
 	body.page-user-register &:after {
 		content: "After logging in, you'll return here to complete your profile.";
 		display: block;
+		font-size: .85em;
+		font-style: italic;
+		margin-top: 20px;
+		width: 17em;
 	}
 	
 	.connector-button-wrapper {

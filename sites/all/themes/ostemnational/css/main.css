@@ -626,7 +626,11 @@ header {
     display: block; }
   body.page-user-register #connector-button-form:after {
     content: "After logging in, you'll return here to complete your profile.";
-    display: block; }
+    display: block;
+    font-size: .85em;
+    font-style: italic;
+    margin-top: 20px;
+    width: 17em; }
   #connector-button-form .connector-button-wrapper {
     display: block;
     margin: 0;

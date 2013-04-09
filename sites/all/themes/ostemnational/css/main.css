@@ -624,6 +624,9 @@ header {
   #connector-button-form:before {
     content: "Connect your account with:";
     display: block; }
+  body.page-user-register #connector-button-form:after {
+    content: "After logging in, you'll return here to complete your profile.";
+    display: block; }
   #connector-button-form .connector-button-wrapper {
     display: block;
     margin: 0;

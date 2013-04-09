@@ -466,6 +466,11 @@ header {
 		display: block;
 	}
 	
+	body.page-user-register &:after {
+		content: "After logging in, you'll return here to complete your profile.";
+		display: block;
+	}
+	
 	.connector-button-wrapper {
 		display: block;
 		margin: 0;

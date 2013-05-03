@@ -415,6 +415,11 @@ header {
 				background: $ltgray;
 				background: transparentize($ltgray, .5);
 				margin-bottom: 1em;
+				
+				.content {
+					font-family: "Lato",Segoe,Calibiri,sans-serif;
+					font-size: 1.05em;
+				}
 			}
 		}
 		

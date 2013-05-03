@@ -594,6 +594,9 @@ header {
     background: #f4f4f4;
     background: rgba(244, 244, 244, 0.5);
     margin-bottom: 1em; }
+    .front #main .region .block-block .content {
+      font-family: "Lato",Segoe,Calibiri,sans-serif;
+      font-size: 1.05em; }
   .front #main #homepage-feature-wrapper {
     float: left;
     margin-right: 30px; }

@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_token_info()
+ */
+function ostem_tokens_token_info() {
+	$info['tokens']['user']['address_lines'] = array(
+		'name' => t('Concatenated Street Address'),
+		'description' => t('The appropriately concatenated values for street line 1 and street line 2.'),
+	);
+	return $info;
+}
+
+/**
+ * Implements hook_tokens(). This hook will operate the token and replace it with it's value.
+ */
+function ostem_tokens_tokens($type, $tokens, array $data = array(), array $options = array()) {
+	$replacements = array();
+    $sanitize = !empty($options['sanitize']);
+	if ($type == 'user' && !empty($data['user'])) {
+		$user = $data['user'];
+		foreach ($tokens as $name => $original) {
+			switch ($name) {
+			case 'address_lines':
+				$add1 = field_get_items('user', $user, 'field_address_1');
+				$add2 = field_get_items('user', $user, 'field_address_2');
+				$full_address = "";
+				if($add1 && !empty($add1)) $full_address .= $add1[0]['value'];
+				if($add2 && !empty($add2)) $full_address .= ", ".$add2[0]['value'];				
+				$replacements[$original] = $full_address;
+				break;
+			}
+		}
+	}
+	return $replacements;
+}

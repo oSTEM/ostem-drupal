@@ -1,0 +1,6 @@
+name = oSTEM Custom Tokens
+description = Enables oSTEM custom tokens.
+package = Added Functionality
+core = 7.x
+dependencies[] = token
+files[] = ostem_frontpage.module

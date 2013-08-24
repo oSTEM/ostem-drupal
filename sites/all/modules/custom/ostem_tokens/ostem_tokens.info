@@ -3,4 +3,4 @@ description = Enables oSTEM custom tokens.
 package = Added Functionality
 core = 7.x
 dependencies[] = token
-files[] = ostem_frontpage.module
+files[] = ostem_tokens.module

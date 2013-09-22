@@ -98,7 +98,9 @@ function ostemnational_connector_connections_list_tableselect($variables) {
 }
 
 function ostemnational_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-	foreach($data['tabs'][0]['output'] as $key => $item) {
-		if($item['#link']['path'] == 'user/%/connections') $data['tabs'][0]['output'][$key]['#link']['title'] = 'Social Media Connections';
+	if(count($data['tabs']) > 0) {
+		foreach($data['tabs'][0]['output'] as $key => $item) {
+			if($item['#link']['path'] == 'user/%/connections') $data['tabs'][0]['output'][$key]['#link']['title'] = 'Social Media Connections';
+		}
 	}
 }

@@ -11,6 +11,10 @@
 
 <div id="main" role="main">
 	
+	<?php if ($messages): ?>
+        <div id="messages" class="clearfix"><?php print $messages; ?></div>
+      <?php endif; ?>
+	
 	<?php print render($page['help']); ?>
 	
 	<?php print render($page['content']); ?>

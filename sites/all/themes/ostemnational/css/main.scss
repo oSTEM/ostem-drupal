@@ -89,6 +89,12 @@ a {
 	}
 }
 
+.left-float-img {
+	float: left;
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+
 .menu {
 	@extend .clearfix;
 	list-style: none;

@@ -9,9 +9,12 @@
  */
 
 /**
- * Define fieldmap types.
- *
- * TODO: Document me.
+ * @defgroup salesforce_hooks Hooks provided by Salesforce API
+ * @{
+ */
+
+/**
+ * Trigger action when first building the list of fieldmap types.
  */
 function hook_salesforce_mapping_fieldmap_type() {
 
@@ -20,33 +23,51 @@ function hook_salesforce_mapping_fieldmap_type() {
 /**
  * Alter existing fieldmap types.
  *
- * @param $fieldmap_type
+ * @param array $fieldmap_type
+ *   Array of fieldmap Salesforce types
  */
 function hook_salesforce_mapping_fieldmap_type_alter($fieldmap_type) {
 
 }
 
 /**
- * Alter the parameters being mapped to a Salesforce object before it is synced
- * to Salesforce.
+ * Alter parameters mapped to a Salesforce object before syncing to Salesforce.
  *
- * @param $params
+ * @param array $params
  *   Associative array of key value pairs.
- * @param $mapping
+ * @param object $mapping
  *   Salesforce mapping object.
- * @param $entity
- *   Drupal entity being mapped.
+ * @param object $entity_wrapper
+ *   EntityMetadataWrapper of entity being mapped.
  */
-function hook_salesforce_push_params_alter(&$params, $mapping, $entity) {
+function hook_salesforce_push_params_alter(&$params, $mapping, $entity_wrapper) {
+
+}
+
+/**
+ * Prevent push to SF for an entity.
+ *
+ * @param string $entity_type
+ *   The type of entity the push is for.
+ * @param object $entity
+ *   The entity object the push is for.
+ * @param ing $sf_sync_trigger
+ *   Constant for the Drupal operation that triggered the sync.
+ *
+ * @return bool
+ *   FALSE if the entity should not be synced to Salesforce for the
+ *   $sf_sync_trigger operation.
+ */
+function hook_salesforce_push_entity_allowed($entity_type, $entity, $sf_sync_trigger) {
 
 }
 
 /**
  * Alter the value being mapped to an entity property from a Salesforce object.
  *
- * @param $value
+ * @param string $value
  *   Salesforce field value.
- * @param $field_map
+ * @param array $field_map
  *   Associative array containing the field mapping in the form
  *   <code>
  *   'fieldmap_name' => array(
@@ -57,9 +78,23 @@ function hook_salesforce_push_params_alter(&$params, $mapping, $entity) {
  *      'salesforce_field' => array()
  *   )
  *   </code>
- * @param $sf_object
+ * @param object $sf_object
  *   Fully loaded Salesforce object
  */
 function hook_salesforce_pull_entity_value_alter(&$value, $field_map, $sf_object) {
 
 }
+
+/**
+ * Alter a SOQL select query before it is executed.
+ *
+ * @param SalesforceSelectQuery $query
+ *   The query object to alter.
+ */
+function hook_salesforce_query_alter(SalesforceSelectQuery &$query) {
+
+}
+
+/**
+ * @} salesforce_hooks
+ */

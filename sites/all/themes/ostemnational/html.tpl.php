@@ -13,9 +13,7 @@
 	
 	<body class="<?php print $classes; ?>" <?php print $attributes;?> id="<?php print getBodyID($is_front); ?>">
 		
-		<?php print $page_top; ?>
 		<?php print $page; ?>
-		<?php print $page_bottom; ?>
 	
 	</body>	
 </html>

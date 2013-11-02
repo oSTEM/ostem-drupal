@@ -304,7 +304,9 @@ header {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   height: 47px;
-  border: 1px solid gray; }
+  border: 1px solid gray;
+  border-left: 0;
+  border-right: 0; }
   #menu_wrap > .region {
     width: 960px;
     margin: 0 auto;

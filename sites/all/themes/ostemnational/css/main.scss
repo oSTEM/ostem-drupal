@@ -206,7 +206,7 @@ form {
 			input[type=date],
 			select,
 			textarea {
-				padding: .5em;
+				padding: .25em .5em;
 				border: 2px solid mix($ltgray, $gray);
 				@include border-radius(6px);
 				@include transition(border-color .3s);

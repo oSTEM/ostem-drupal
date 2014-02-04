@@ -344,7 +344,7 @@ form .form-item input[type=password],
 form .form-item input[type=date],
 form .form-item select,
 form .form-item textarea {
-  padding: .5em;
+  padding: .25em .5em;
   border: 2px solid #adadad;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;

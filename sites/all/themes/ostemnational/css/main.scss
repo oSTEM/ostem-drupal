@@ -293,6 +293,13 @@ form {
 				&:active {
 					top: 1px;
 				}
+				
+				+ button, + input[type=submit], + input[type=button], + input[type=reset] {
+					
+					&:not(.connector-button) {
+						margin-left: .5em;
+					}
+				}
 			}
 		}
 	}

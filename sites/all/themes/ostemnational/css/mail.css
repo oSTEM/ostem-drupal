@@ -1,0 +1,39 @@
+body {
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 100%; }
+
+h2, h3, p, ol, ul, fieldset, label {
+  margin-top: .75em; }
+
+h1, h2, h3 {
+  font-weight: bold; }
+
+h1 {
+  font-size: 1.5em; }
+
+h2 {
+  font-size: 1.3em; }
+
+h3 {
+  font-size: 1.2em; }
+
+strong {
+  font-weight: bold; }
+
+em {
+  font-style: italic; }
+
+.header h1, .header p {
+  margin-top: 0; }
+
+fieldset {
+  border: 1px solid #ccc; }
+  fieldset legend {
+    font-size: .9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: .25em .5em; }
+
+label {
+  font-weight: bold;
+  display: block; }

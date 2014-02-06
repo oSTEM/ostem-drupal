@@ -486,6 +486,8 @@ header {
     width: 960px;
     margin: 0 auto;
     text-align: center; }
+    header > .region p, header > .region ul, header > .region ol {
+      margin: 0; }
 
 #menu_wrap {
   background: #666666;
@@ -505,6 +507,15 @@ header {
     border-left: none;
     border-right: none;
     height: 45px; }
+    #menu_wrap > .region > .block-block {
+      line-height: 45px;
+      color: #f4f4f4;
+      font-family: "Lato",Segoe,Calibiri,sans-serif;
+      font-size: 1.05em; }
+      #menu_wrap > .region > .block-block a {
+        color: #7ab1f9; }
+      #menu_wrap > .region > .block-block p, #menu_wrap > .region > .block-block ul, #menu_wrap > .region > .block-block ol {
+        margin: 0; }
     #menu_wrap > .region > .block-menu .menu, #menu_wrap > .region > .block-menu .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu ul {
       overflow: hidden;
       height: 45px; }

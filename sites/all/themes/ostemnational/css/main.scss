@@ -313,6 +313,10 @@ header {
 		width: 960px;
 		margin: 0 auto;
 		text-align: center;
+		
+		p, ul, ol {
+			margin: 0;
+		}
 	}
 }
 
@@ -333,6 +337,21 @@ header {
 		border-left: none;
 		border-right: none;
 		height: 45px;
+		
+		> .block-block {
+			line-height: 45px;
+			color: $ltgray;
+			font-family: "Lato",Segoe,Calibiri,sans-serif;
+			font-size: 1.05em;
+			
+			a {
+				color: mix($ltgray, $blue);
+			}
+			
+			p, ul, ol {
+				margin: 0;
+			}
+		}
 		
 		> .block-menu {
 		

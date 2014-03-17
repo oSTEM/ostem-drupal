@@ -87,3 +87,30 @@ $blue: rgb(0,111,255);
 	}
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$stop1color}', endColorstr='#{$stop2color}',GradientType=0 );
 }
+
+@mixin background-horizontal-gradient($stop1color, $stop1loc, $stop2color, $stop2loc, $stop3color:"", $stop3loc:"", $stop4color:"", $stop4loc:"") {
+	background: $stop1color;
+	@if $stop3color == "" {
+		background-image: -moz-linear-gradient(bottom,  $stop1color $stop1loc, $stop2color $stop2loc);
+		background-image: -webkit-gradient(linear, left top, right top, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color));
+		background-image: -webkit-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: -o-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: -ms-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc);
+		background-image: linear-gradient(to right,  $stop1color $stop1loc,$stop2color $stop2loc);
+	} @else if $stop4color == "" {
+		background-image: -moz-linear-gradient(bottom,  $stop1color $stop1loc, $stop2color $stop2loc, $stop3color $stop3loc);
+		background-image: -webkit-gradient(linear, left top, right top, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color), color-stop($stop3loc,$stop3color));
+		background-image: -webkit-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: -o-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: -ms-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+		background-image: linear-gradient(to right,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc);
+	} @else {
+		background-image: -moz-linear-gradient(bottom,  $stop1color $stop1loc, $stop2color $stop2loc, $stop3color $stop3loc, $stop4color $stop4loc);
+		background-image: -webkit-gradient(linear, left top, right top, color-stop($stop1loc,$stop1color), color-stop($stop2loc,$stop2color), color-stop($stop3loc,$stop3color), color-stop($stop4loc,$stop4color));
+		background-image: -webkit-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: -o-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: -ms-linear-gradient(bottom,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+		background-image: linear-gradient(to right,  $stop1color $stop1loc,$stop2color $stop2loc,$stop3color $stop3loc,$stop4color $stop4loc);
+	}
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$stop1color}', endColorstr='#{$stop2color}',GradientType=1 );
+}

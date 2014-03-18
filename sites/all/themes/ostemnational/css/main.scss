@@ -115,13 +115,13 @@ ul, ol {
 }
 
 .menu {
-	@extend .clearfix;
+	@include clearfix;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	
 	li {
-		@extend %inline-block;
+		@include inline-block;
 		float: left;
 		margin: 0;
 		padding: 0;
@@ -265,7 +265,7 @@ form {
 		
 		button, input[type=submit], input[type=button], input[type=reset] {
 		
-			@extend %inline-block;
+			@include inline-block;
 			padding: .75em 1.5em;
 			@include background-vertical-gradient(#363636, 0%, #595959, 100%);
 			background-repeat: repeat-x;
@@ -687,13 +687,14 @@ header {
 	background: url(../images/home-bg.png) no-repeat center -140px;
 	
 	#main {
-		@extend .clearfix;
+		@include clearfix;
 	
 		#page-title {
 			display: none;
 		}
 		
 		.region {
+			@include clearfix;
 			
 			.block-block {
 				border: 2px solid rgb(222,222,222);
@@ -711,6 +712,7 @@ header {
 		#homepage-feature-wrapper {
 			float: left;
 			margin-right: 30px;
+			padding-bottom: 15px;
 		}
 		
 		#homepage-body {
@@ -725,7 +727,6 @@ header {
 			}
 			
 			ul {
-				@extend .menu;
 				text-align: center;
 				line-height: 1em;
 				margin-bottom: 1em;
@@ -735,6 +736,7 @@ header {
 					border-left: 1px solid $gray;
 					padding: 0 .5em;
 					margin: 0;
+					@include inline-block;
 					
 					a {
 						padding-left: 5px;

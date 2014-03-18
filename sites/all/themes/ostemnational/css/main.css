@@ -188,13 +188,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.menu li, form button, form input[type=submit], form input[type=button], form input[type=reset] {
-  display: inline-block;
-  vertical-align: baseline;
-  zoom: 1;
-  *display: inline;
-  *vertical-align: auto; }
-
 html, button, input, select, textarea {
   color: #222; }
 
@@ -232,7 +225,7 @@ textarea {
 .clearfix:after {
   clear: both; }
 
-.clearfix, .menu, .front #main {
+.clearfix {
   *zoom: 1; }
 
 body {
@@ -275,11 +268,21 @@ ul ul, ul ol, ol ul, ol ol {
   margin-right: 1em;
   margin-bottom: 1em; }
 
-.menu, .front #main #homepage-body ul {
+.menu {
   list-style: none;
   padding: 0;
   margin: 0; }
+  .menu:before, .menu:after {
+    content: " ";
+    display: table; }
+  .menu:after {
+    clear: both; }
   .menu li {
+    display: inline-block;
+    vertical-align: baseline;
+    zoom: 1;
+    *display: inline;
+    *vertical-align: auto;
     float: left;
     margin: 0;
     padding: 0; }
@@ -364,6 +367,11 @@ form .webform-component .description, form .form-item .description {
 form .webform-component .form-required, form .form-item .form-required {
   color: #ce4646; }
 form button, form input[type=submit], form input[type=button], form input[type=reset] {
+  display: inline-block;
+  vertical-align: baseline;
+  zoom: 1;
+  *display: inline;
+  *vertical-align: auto;
   padding: 0.75em 1.5em;
   background: #363636;
   background-image: -moz-linear-gradient(top, #363636 0%, #595959 100%);
@@ -437,13 +445,13 @@ header {
         color: #7ab1f9; }
       #menu_wrap > .region > .block-block p, #menu_wrap > .region > .block-block ul, #menu_wrap > .region > .block-block ol {
         margin: 0; }
-    #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > ul {
+    #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu {
       display: block;
       height: 45px;
       text-align: center; }
-      #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li > ul {
+      #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li > .menu {
         display: none; }
-      #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > ul {
+      #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > .menu {
         visibility: visible;
         opacity: 1;
         -webkit-transition: 0 0 visibility, 0.2s opacity;
@@ -457,7 +465,7 @@ header {
         width: 130px;
         height: 43px;
         margin: 0 10px; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li > .menu {
           border: 1px solid #333333; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li a {
           display: block;
@@ -492,7 +500,7 @@ header {
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li > a {
           height: 41px;
           line-height: 42px; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li .menu {
           display: block;
           position: absolute;
           left: -1px;
@@ -545,7 +553,7 @@ header {
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
             border-bottom: 10px solid #333333; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1) > .menu {
           border-color: #73040B; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1) a {
           border-color: #CE2029;
@@ -572,7 +580,7 @@ header {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e030b', endColorstr='#ce2029',GradientType=1 ); }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(1).active-trail a:after {
           border-bottom-color: #73040B; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2) > .menu {
           border-color: #B13E1E; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2) a {
           border-color: #FF7518;
@@ -599,7 +607,7 @@ header {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ec551e', endColorstr='#ff7518',GradientType=1 ); }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(2).active-trail a:after {
           border-bottom-color: #B13E1E; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3) > .menu {
           border-color: #E68E15; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3) a {
           border-color: #FFCA1D;
@@ -626,7 +634,7 @@ header {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5a71c', endColorstr='#ffca1d',GradientType=1 ); }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(3).active-trail a:after {
           border-bottom-color: #E68E15; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4) > .menu {
           border-color: #0E440E; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4) a {
           border-color: #1C881C;
@@ -653,7 +661,7 @@ header {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#156615', endColorstr='#1c881c',GradientType=1 ); }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(4).active-trail a:after {
           border-bottom-color: #0E440E; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5) > .menu {
           border-color: #003B71; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5) a {
           border-color: #0064BF;
@@ -680,7 +688,7 @@ header {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004f96', endColorstr='#0064bf',GradientType=1 ); }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(5).active-trail a:after {
           border-bottom-color: #003B71; }
-        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6) > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6) > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6) > ul {
+        #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6), #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6) > .menu {
           border-color: #3E144E; }
         #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li:nth-of-type(6) a {
           border-color: #7C279B;
@@ -769,8 +777,18 @@ header {
 
 .front {
   background: url(../images/home-bg.png) no-repeat center -140px; }
+  .front #main:before, .front #main:after {
+    content: " ";
+    display: table; }
+  .front #main:after {
+    clear: both; }
   .front #main #page-title {
     display: none; }
+  .front #main .region:before, .front #main .region:after {
+    content: " ";
+    display: table; }
+  .front #main .region:after {
+    clear: both; }
   .front #main .region .block-block {
     border: 2px solid #dedede;
     background: #f4f4f4;
@@ -781,7 +799,8 @@ header {
       font-size: 1.05em; }
   .front #main #homepage-feature-wrapper {
     float: left;
-    margin-right: 30px; }
+    margin-right: 30px;
+    padding-bottom: 15px; }
   .front #main #homepage-body {
     padding-top: 50px;
     font-family: "Lato", Segoe, Calibiri, sans-serif;
@@ -798,7 +817,12 @@ header {
         float: none;
         border-left: 1px solid #666666;
         padding: 0 0.5em;
-        margin: 0; }
+        margin: 0;
+        display: inline-block;
+        vertical-align: baseline;
+        zoom: 1;
+        *display: inline;
+        *vertical-align: auto; }
         .front #main #homepage-body ul li a {
           padding-left: 5px;
           color: #006fff; }
@@ -870,7 +894,7 @@ footer {
     width: 960px;
     margin: 0 auto;
     padding: 15px 0; }
-    footer > .region .menu, footer > .region .front #main #homepage-body ul, .front #main #homepage-body footer > .region ul {
+    footer > .region .menu {
       text-align: center;
       line-height: 1em;
       margin-bottom: 1em; }

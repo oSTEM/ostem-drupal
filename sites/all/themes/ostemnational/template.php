@@ -42,7 +42,8 @@ function ostemnational_form_alter(&$form, &$form_state, $form_id) {
         $lname = isset($_SESSION['azure_acs_data']['surname']) ? $_SESSION['azure_acs_data']['surname'] : '';
         $name = isset($_SESSION['azure_acs_data']['name']) ? $_SESSION['azure_acs_data']['name'] :
             (empty($fname) || empty($lname) ? '' : $fname . ' ' . $lname);
-        $user = empty($mail) ? $name : explode('@', $mail)[0];
+        $explode = strpos($mail, '@') === FALSE ? array('') : explode('@', $mail);
+        $user = empty($mail) ? $name : $explode[0];
         
         if(!empty($name)) {
             $explode = explode(" ", $name);

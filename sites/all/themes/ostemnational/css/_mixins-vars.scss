@@ -5,12 +5,23 @@ $ltgray: rgb(244,244,244);
 $gray: rgb(102,102,102);
 $blue: rgb(0,111,255);
 
-%inline-block {
+@mixin inline-block {
 	display: inline-block;
 	vertical-align: baseline;
 	zoom: 1;
 	*display: inline;
 	*vertical-align: auto;
+}
+
+@mixin clearfix {
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
 }
 
 @mixin box-shadow($vars) {

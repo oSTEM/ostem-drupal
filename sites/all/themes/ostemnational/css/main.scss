@@ -265,41 +265,36 @@ form {
 		
 		button, input[type=submit], input[type=button], input[type=reset] {
 		
-			&:not(.connector-button) {
-				@extend %inline-block;
-				padding: .75em 1.5em;
-				@include background-vertical-gradient(#363636, 0%, #595959, 100%);
-				background-repeat: repeat-x;
-				@include transition(background-position .3s);
-				@include box-shadow(0 1px 3px black(.5));
-				border: none;
-				border-bottom: 1px solid black(.25);
-				@include border-radius(4px);
-				font-weight: normal;
-				font-size: 1em;
-				font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-				color: white;
-				position: relative;
+			@extend %inline-block;
+			padding: .75em 1.5em;
+			@include background-vertical-gradient(#363636, 0%, #595959, 100%);
+			background-repeat: repeat-x;
+			@include transition(background-position .3s);
+			@include box-shadow(0 1px 3px black(.5));
+			border: none;
+			border-bottom: 1px solid black(.25);
+			@include border-radius(4px);
+			font-weight: normal;
+			font-size: 1em;
+			font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+			color: white;
+			position: relative;
 				
-				&:hover, &:active, &:focus {
-					outline: 0;
-					outline: none;
-				}
+			&:hover, &:active, &:focus {
+				outline: 0;
+				outline: none;
+			}
 				
-				&:hover {
-					background-position: center 1em;
-				}
+			&:hover {
+				background-position: center 1em;
+			}
 				
-				&:active {
-					top: 1px;
-				}
+			&:active {
+				top: 1px;
+			}
 				
-				+ button, + input[type=submit], + input[type=button], + input[type=reset] {
-					
-					&:not(.connector-button) {
-						margin-left: .5em;
-					}
-				}
+			+ button, + input[type=submit], + input[type=button], + input[type=reset] {
+				margin-left: .5em;
 			}
 		}
 	}
@@ -370,7 +365,7 @@ header {
 						> .menu {
 							visibility: visible;
 							opacity: 1;
-							transition: 0 0 visibility, .2s opacity;
+							@include transition(0 0 visibility, .2s opacity);
 						}
 					}
 				}
@@ -399,7 +394,7 @@ header {
 						text-align: center;
 						background-size: auto 100% !important;
 						background-repeat: repeat-x !important;
-						transition: background-position .3s;
+						@include transition(background-position .3s);
 						
 						&:hover {
 							text-decoration: none;
@@ -429,7 +424,7 @@ header {
 						font-weight: bold;
 						visibility: hidden;
 						opacity: 0;
-						transition: 0 .2s visibility, .2s opacity;
+						@include transition(0 .2s visibility, .2s opacity);
 
 						li {
 							margin: 0;
@@ -763,81 +758,53 @@ header {
 	}
 }
 
-#connector-button-form {
-	margin: 15px 0;
-	
-	&:before {
-		content: "Connect your account with:";
-		display: block;
-	}
-	
-	body.page-user-register &:after {
-		content: "After logging in, you'll return here to complete your profile.";
-		display: block;
-		font-size: .85em;
-		font-style: italic;
-		margin-top: 20px;
-		width: 17em;
-	}
-	
-	.connector-button-wrapper {
+.block-azure-acs {
+	width: 40%;
+	float: right;
+	margin-left: 50px;
+	margin-top: 20px;
+
+	.links {
 		display: block;
 		margin: 0;
-		padding: 0 20px;
-		
-		&.oauthconnector-google {
-			background: url(../images/social-icons/google.png) no-repeat left center;
-			padding-left: 52px;
-		}
-		&.oauthconnector-facebook {
-			background: url(../images/social-icons/facebook.png) no-repeat left center;
-			padding-left: 52px;
-		}
-		&.oauthconnector-twitter {
-			background: url(../images/social-icons/twitter.png) no-repeat left center;
-			padding-left: 52px;
-		}
-		&.oauthconnector-linkedin {
-			background: url(../images/social-icons/linkedin.png) no-repeat left center;
-			padding-left: 52px;
-		}
-		
-		input, button {
-			height: 48px;
-			margin: 0;
-			padding: 0;
-			background: none;
-			border: none;
-			color: $blue;
-			font-weight: normal;
-			font-family: "Lato",Segoe,Calibiri,sans-serif;
-			
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-	}
-}
+		padding: 0;
+		padding-right: 20px;
 
-.block-connector {
-	width: 35%;
-	float: right;
-	border-left: 2px solid black;
-	margin-left: 50px;
-	
-	#connector-button-form {
-		//text-align: center;
-		//margin: 0;
-		margin-left: 30px;
-		
-		&:before {
-			content: "Or login with:";
-			margin: 0 20px 20px;
-			font-weight: bold;
-		}
-		
-		.connector-button-wrapper {
-			//display: inline-block;
+		li {
+			display: block;
+			margin: 5px 0;
+			padding: 0;
+
+			a {
+				display: block;
+				padding: .75em 1.5em;
+				@include background-vertical-gradient(#595959, 0%, #999999, 100%);
+				background-repeat: repeat-x;
+				@include transition(background-position .3s);
+				@include box-shadow(0 1px 3px black(.5));
+				border: none;
+				border-bottom: 1px solid black(.25);
+				@include border-radius(4px);
+				font-weight: normal;
+				font-size: 1em;
+				font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+				color: white;
+				position: relative;
+				
+				&:hover, &:active, &:focus {
+					outline: 0;
+					outline: none;
+					text-decoration: none;
+				}
+				
+				&:hover {
+					background-position: center 1em;
+				}
+				
+				&:active {
+					top: 1px;
+				}
+			}
 		}
 	}
 }

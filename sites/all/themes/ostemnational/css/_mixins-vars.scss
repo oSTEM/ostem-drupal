@@ -49,11 +49,18 @@ $blue: rgb(0,111,255);
 	border-bottom-right-radius: $vars;
 }
 
-@mixin transition($vars) {
-	-webkit-transition: $vars;
-	-moz-transition: $vars;
-	-o-transition: $vars;
-	transition: $vars;
+@mixin transition($var1, $var2: "") {
+	@if $var2 == "" {
+		-webkit-transition: $var1;
+		-moz-transition: $var1;
+		-o-transition: $var1;
+		transition: $var1;
+	} @else {
+		-webkit-transition: $var1, $var2;
+		-moz-transition: $var1, $var2;
+		-o-transition: $var1, $var2;
+		transition: $var1, $var2;
+	}
 }
 
 @mixin text-shadow($x, $y, $blur, $color) {

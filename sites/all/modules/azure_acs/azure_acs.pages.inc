@@ -98,7 +98,7 @@ function azure_acs_return() {
       }
       else {
         // We need to take the user to the registration form.
-        drupal_set_message(t('You need to create a local user account to proceed.'));
+        drupal_set_message(t('Please complete your account information to proceed.'));
         if (isset($_GET['destination'])) {
           unset($_GET['destination']);
         }

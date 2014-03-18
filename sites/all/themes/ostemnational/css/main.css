@@ -188,7 +188,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.menu li, form button:not(.connector-button), form input[type=submit]:not(.connector-button), form input[type=button]:not(.connector-button), form input[type=reset]:not(.connector-button) {
+.menu li, form button, form input[type=submit], form input[type=button], form input[type=reset] {
   display: inline-block;
   vertical-align: baseline;
   zoom: 1;
@@ -363,7 +363,7 @@ form .webform-component .description, form .form-item .description {
   margin-top: 0.5em; }
 form .webform-component .form-required, form .form-item .form-required {
   color: #ce4646; }
-form button:not(.connector-button), form input[type=submit]:not(.connector-button), form input[type=button]:not(.connector-button), form input[type=reset]:not(.connector-button) {
+form button, form input[type=submit], form input[type=button], form input[type=reset] {
   padding: 0.75em 1.5em;
   background: #363636;
   background-image: -moz-linear-gradient(top, #363636 0%, #595959 100%);
@@ -391,14 +391,14 @@ form button:not(.connector-button), form input[type=submit]:not(.connector-butto
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
   color: white;
   position: relative; }
-  form button:not(.connector-button):hover, form button:not(.connector-button):active, form button:not(.connector-button):focus, form input[type=submit]:not(.connector-button):hover, form input[type=submit]:not(.connector-button):active, form input[type=submit]:not(.connector-button):focus, form input[type=button]:not(.connector-button):hover, form input[type=button]:not(.connector-button):active, form input[type=button]:not(.connector-button):focus, form input[type=reset]:not(.connector-button):hover, form input[type=reset]:not(.connector-button):active, form input[type=reset]:not(.connector-button):focus {
+  form button:hover, form button:active, form button:focus, form input[type=submit]:hover, form input[type=submit]:active, form input[type=submit]:focus, form input[type=button]:hover, form input[type=button]:active, form input[type=button]:focus, form input[type=reset]:hover, form input[type=reset]:active, form input[type=reset]:focus {
     outline: 0;
     outline: none; }
-  form button:not(.connector-button):hover, form input[type=submit]:not(.connector-button):hover, form input[type=button]:not(.connector-button):hover, form input[type=reset]:not(.connector-button):hover {
+  form button:hover, form input[type=submit]:hover, form input[type=button]:hover, form input[type=reset]:hover {
     background-position: center 1em; }
-  form button:not(.connector-button):active, form input[type=submit]:not(.connector-button):active, form input[type=button]:not(.connector-button):active, form input[type=reset]:not(.connector-button):active {
+  form button:active, form input[type=submit]:active, form input[type=button]:active, form input[type=reset]:active {
     top: 1px; }
-  form button:not(.connector-button) + button:not(.connector-button), form button:not(.connector-button) + input[type=submit]:not(.connector-button), form button:not(.connector-button) + input[type=button]:not(.connector-button), form button:not(.connector-button) + input[type=reset]:not(.connector-button), form input[type=submit]:not(.connector-button) + button:not(.connector-button), form input[type=submit]:not(.connector-button) + input[type=submit]:not(.connector-button), form input[type=submit]:not(.connector-button) + input[type=button]:not(.connector-button), form input[type=submit]:not(.connector-button) + input[type=reset]:not(.connector-button), form input[type=button]:not(.connector-button) + button:not(.connector-button), form input[type=button]:not(.connector-button) + input[type=submit]:not(.connector-button), form input[type=button]:not(.connector-button) + input[type=button]:not(.connector-button), form input[type=button]:not(.connector-button) + input[type=reset]:not(.connector-button), form input[type=reset]:not(.connector-button) + button:not(.connector-button), form input[type=reset]:not(.connector-button) + input[type=submit]:not(.connector-button), form input[type=reset]:not(.connector-button) + input[type=button]:not(.connector-button), form input[type=reset]:not(.connector-button) + input[type=reset]:not(.connector-button) {
+  form button + button, form button + input[type=submit], form button + input[type=button], form button + input[type=reset], form input[type=submit] + button, form input[type=submit] + input[type=submit], form input[type=submit] + input[type=button], form input[type=submit] + input[type=reset], form input[type=button] + button, form input[type=button] + input[type=submit], form input[type=button] + input[type=button], form input[type=button] + input[type=reset], form input[type=reset] + button, form input[type=reset] + input[type=submit], form input[type=reset] + input[type=button], form input[type=reset] + input[type=reset] {
     margin-left: 0.5em; }
 
 header {
@@ -446,6 +446,9 @@ header {
       #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > .menu, #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > .front #main #homepage-body ul, .front #main #homepage-body #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu li:hover > ul {
         visibility: visible;
         opacity: 1;
+        -webkit-transition: 0 0 visibility, 0.2s opacity;
+        -moz-transition: 0 0 visibility, 0.2s opacity;
+        -o-transition: 0 0 visibility, 0.2s opacity;
         transition: 0 0 visibility, 0.2s opacity; }
       #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li {
         display: inline-block;
@@ -475,6 +478,9 @@ header {
           text-align: center;
           background-size: auto 100% !important;
           background-repeat: repeat-x !important;
+          -webkit-transition: background-position 0.3s;
+          -moz-transition: background-position 0.3s;
+          -o-transition: background-position 0.3s;
           transition: background-position 0.3s; }
           #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li a:hover {
             text-decoration: none;
@@ -499,6 +505,9 @@ header {
           font-weight: bold;
           visibility: hidden;
           opacity: 0;
+          -webkit-transition: 0 0.2s visibility, 0.2s opacity;
+          -moz-transition: 0 0.2s visibility, 0.2s opacity;
+          -o-transition: 0 0.2s visibility, 0.2s opacity;
           transition: 0 0.2s visibility, 0.2s opacity; }
           #menu_wrap > .region > .block-menu-block .menu-block-wrapper > .menu > li .menu li {
             margin: 0;
@@ -800,57 +809,57 @@ header {
   list-style: none;
   padding-left: 0; }
 
-#connector-button-form {
-  margin: 15px 0; }
-  #connector-button-form:before {
-    content: "Connect your account with:";
-    display: block; }
-  body.page-user-register #connector-button-form:after {
-    content: "After logging in, you'll return here to complete your profile.";
-    display: block;
-    font-size: 0.85em;
-    font-style: italic;
-    margin-top: 20px;
-    width: 17em; }
-  #connector-button-form .connector-button-wrapper {
+.block-azure-acs {
+  width: 40%;
+  float: right;
+  margin-left: 50px;
+  margin-top: 20px; }
+  .block-azure-acs .links {
     display: block;
     margin: 0;
-    padding: 0 20px; }
-    #connector-button-form .connector-button-wrapper.oauthconnector-google {
-      background: url(../images/social-icons/google.png) no-repeat left center;
-      padding-left: 52px; }
-    #connector-button-form .connector-button-wrapper.oauthconnector-facebook {
-      background: url(../images/social-icons/facebook.png) no-repeat left center;
-      padding-left: 52px; }
-    #connector-button-form .connector-button-wrapper.oauthconnector-twitter {
-      background: url(../images/social-icons/twitter.png) no-repeat left center;
-      padding-left: 52px; }
-    #connector-button-form .connector-button-wrapper.oauthconnector-linkedin {
-      background: url(../images/social-icons/linkedin.png) no-repeat left center;
-      padding-left: 52px; }
-    #connector-button-form .connector-button-wrapper input, #connector-button-form .connector-button-wrapper button {
-      height: 48px;
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
-      color: #006fff;
-      font-weight: normal;
-      font-family: "Lato", Segoe, Calibiri, sans-serif; }
-      #connector-button-form .connector-button-wrapper input:hover, #connector-button-form .connector-button-wrapper button:hover {
-        text-decoration: underline; }
-
-.block-connector {
-  width: 35%;
-  float: right;
-  border-left: 2px solid black;
-  margin-left: 50px; }
-  .block-connector #connector-button-form {
-    margin-left: 30px; }
-    .block-connector #connector-button-form:before {
-      content: "Or login with:";
-      margin: 0 20px 20px;
-      font-weight: bold; }
+    padding: 0;
+    padding-right: 20px; }
+    .block-azure-acs .links li {
+      display: block;
+      margin: 5px 0;
+      padding: 0; }
+      .block-azure-acs .links li a {
+        display: block;
+        padding: 0.75em 1.5em;
+        background: #595959;
+        background-image: -moz-linear-gradient(top, #595959 0%, #999999 100%);
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #595959), color-stop(100%, #999999));
+        background-image: -webkit-linear-gradient(top, #595959 0%, #999999 100%);
+        background-image: -o-linear-gradient(top, #595959 0%, #999999 100%);
+        background-image: -ms-linear-gradient(top, #595959 0%, #999999 100%);
+        background-image: linear-gradient(to bottom, #595959 0%, #999999 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#595959', endColorstr='#999999',GradientType=0 );
+        background-repeat: repeat-x;
+        -webkit-transition: background-position 0.3s;
+        -moz-transition: background-position 0.3s;
+        -o-transition: background-position 0.3s;
+        transition: background-position 0.3s;
+        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        font-weight: normal;
+        font-size: 1em;
+        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+        color: white;
+        position: relative; }
+        .block-azure-acs .links li a:hover, .block-azure-acs .links li a:active, .block-azure-acs .links li a:focus {
+          outline: 0;
+          outline: none;
+          text-decoration: none; }
+        .block-azure-acs .links li a:hover {
+          background-position: center 1em; }
+        .block-azure-acs .links li a:active {
+          top: 1px; }
 
 footer {
   width: 100%;

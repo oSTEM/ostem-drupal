@@ -56,3 +56,24 @@ function azure_acs_admin($form, &$form_state) {
 
   return system_settings_form($form);
 }
+
+/**
+ * Form definitions for Windows Azure ACS user role mapping page
+ *
+ * @ingroup forms
+ */
+function azure_acs_admin_mapping($form, &$form_state) {
+    $form = array();
+        
+    foreach (user_roles(true) as $rid => $rname) {
+        $form['azure_acs_mapping_rid_'.$rid] = array(
+            '#title' => t($rname),
+            '#type' => 'textarea',
+            '#description' => 'Enter one identity provider per line to match newly created users for this IDP to this user role.',
+		    '#default_value' => variable_get('azure_acs_mapping_rid_'.$rid, ''),
+            '#resizable' => false
+        );
+    }
+
+    return system_settings_form($form);
+}

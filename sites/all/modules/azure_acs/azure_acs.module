@@ -20,6 +20,16 @@ function azure_acs_menu() {
     'file' => 'azure_acs.admin.inc',
     'type' => MENU_NORMAL_ITEM,
   );
+  
+  $items['admin/config/people/azure_acs/role_mapping'] = array(
+    'title' => 'Role Mappings',
+    'description' => 'Configure Windows Azure ACS user role mappings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('azure_acs_admin_mapping'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'azure_acs.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
 
   $items['acs'] = array(
     'title' => 'Windows Azure ACS return handler',
@@ -153,7 +163,30 @@ function azure_acs_user_insert(&$edit, $account, $category) {
   if (!empty($edit['azure_acs_data'])) {
     // Insert identity provider data for later use
     azure_acs_add_user_identity($account->uid, $edit['azure_acs_data']);
+    
+  }
+}
 
+/**
+ * Implements hook_user_presave().
+ */
+function azure_acs_user_presave(&$edit, $account, $category) {
+  if (!empty($edit['azure_acs_data']) && !empty($edit['azure_acs_data']['identityprovider'])) {
+    // Add user roles
+    $roles = is_array($edit['roles']) ? array() : $edit['roles'];
+    foreach(user_roles(true) as $rid => $rname) {
+        $providers = variable_get('azure_acs_mapping_rid_'.$rid, '');
+        $providers = str_replace("\n\r", "\n", $providers);
+        $providers = explode("\n", $providers);
+        foreach($providers as $provider) {
+            if(empty($provider)) continue;
+            if(strpos($edit['azure_acs_data']['identityprovider'], trim($provider)) !== false) {
+                $roles[$rid] = true;
+                break;
+            }
+        }
+    }
+    $edit['roles'] = $roles;
   }
 }
 

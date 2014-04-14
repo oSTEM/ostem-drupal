@@ -57,8 +57,8 @@ function azure_acs_return() {
     }
 
     //Prettify identity provider string a bit (for example "Facebook-192452900881513" -> "Facebook")
-    $ip_parts = explode('-', $user_data['identityprovider']);
-    $user_data['identityprovider'] = $ip_parts[0];
+    //$ip_parts = explode('-', $user_data['identityprovider']);
+    //$user_data['identityprovider'] = $ip_parts[0];
 
     $mail = isset($user_data['emailaddress']) ? $user_data['emailaddress'] : NULL;
 

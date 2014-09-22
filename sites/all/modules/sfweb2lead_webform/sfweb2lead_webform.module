@@ -33,54 +33,75 @@ function sfweb2lead_webform_menu() {
     'page arguments' => array('sfweb2lead_webform_form'),
     'access arguments' => array('administer salesforce webform'),
   );
+  $items['node/%webform_menu/webform/sfweb2lead_webform'] = array(
+    'title' => 'Salesforce Web2Lead',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sfweb2lead_nodesettings_form', 1),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
+    'weight' => 1,
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
 }
 
 /**
- * Implements hook_form_alter()
- *
- * @param $form
- * @param $form_state
- * @param $form_id
- *
- * @return
+ * Form builder; Provides the form for adding Salesforce Web2Lead Settings to a webform node.
  */
-function sfweb2lead_webform_form_alter(&$form, &$form_state, $form_id) {
-  // Handle editing of webform nodes.
-  if ($form_id == 'webform_node_form') {
-    if (!_sfweb2lead_webform_check_settings()) {
-      drupal_set_message(t('Salesforce Web-to-Lead Settings not set! You can configure the settings <a href="@url">SF Web-To-Lead settings page</a>.', array('@url' => url('admin/config/services/salesforce_webform'))), 'warning');
-      return;
-    }
-    /* Collapse the email info on the page assuming that it is going to be a SalesForce Settings form. */
-    $form['mailsettings']['#collapsed'] = TRUE;
-    /* Start SalesForce Settings Form */
-    $sfweb2lead_webform['settings'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('SalesForce Settings'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-      '#weight' => -2,
-    );
-    $sfweb2lead_webform['settings']['use_sfweb2lead_webform'] = array(
-      '#type' => 'radios',
-      '#title' => t('Submit to SalesForce'),
-      '#options' => array(
-        1 => t('Yes'), 0 => t('No')
-      ),
-      '#description' => t('If yes, the form will be sent via CURL to SalesForce.'),
-      '#default_value' => isset($form['#node']->use_sfweb2lead_webform) ? $form['#node']->use_sfweb2lead_webform : 0,
-    );
-    $sfweb2lead_webform['settings']['lead_source_sfweb2lead_webform'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Lead Source for this Webform'),
-      '#default_value' => isset($form['#node']->lead_source_sfweb2lead_webform) ? $form['#node']->lead_source_sfweb2lead_webform : '',
-    );
-    /* End SalesForce settings form */
-    // integrate the SalesForce Webform Settings form
-    $pos = array_search('mailsettings', array_keys($form)) + 1;
-    $form = array_merge(array_slice($form, 0, $pos), $sfweb2lead_webform, array_slice($form, $pos));
+function sfweb2lead_nodesettings_form($form, &$form_state, $node) {
+  if (!_sfweb2lead_webform_check_settings()) {
+    drupal_set_message(t('Salesforce Web-to-Lead Settings not set! You can configure the settings <a href="@url">SF Web-To-Lead settings page</a>.', array('@url' => url('admin/config/services/salesforce_webform'))), 'warning');
+    return;
   }
+  $result = db_select('sfweb2lead_webform', 's')
+    ->fields('s', array('active', 'lead_source'))
+    ->condition('vid', $node->vid)
+    ->execute()->fetchAssoc();
+  $form['#node'] = $node;
+  $form['settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('SalesForce Settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#weight' => -2,
+  );
+  $form['settings']['use_sfweb2lead_webform'] = array(
+    '#type' => 'radios',
+    '#title' => t('Submit to SalesForce'),
+    '#options' => array(
+      1 => t('Yes'), 0 => t('No')
+    ),
+    '#description' => t('If yes, the form will be sent via CURL to SalesForce.'),
+    '#default_value' => isset($result['active']) ? $result['active'] : 0,
+  );
+  $form['settings']['lead_source_sfweb2lead_webform'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Lead Source for this Webform'),
+    '#default_value' => isset($result['lead_source']) ? $result['lead_source'] : '',
+  );
+  $form['settings']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save Node Web2Lead Settings'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for webform_conditionals_form().
+ */
+function sfweb2lead_nodesettings_form_submit($form, &$form_state) {
+  $node = $form['#node'];
+  $table_name = 'sfweb2lead_webform';
+  $record = array();
+  $record['vid'] = $node->vid;
+  $record['active'] = $form_state['values']['use_sfweb2lead_webform'];
+  $record['lead_source'] = $form_state['values']['lead_source_sfweb2lead_webform'];
+  // Store the  Webform SalesForce settings.
+  $query = db_merge('sfweb2lead_webform')
+    ->key(array('vid' => $record['vid']))
+    ->fields($record)
+    ->execute();
+  drupal_set_message(t('Web2Lead Settings for %title saved.', array('%title' => $node->title)));
 }
 
 /**
@@ -112,7 +133,17 @@ function _sfweb2lead_webform_check_settings() {
  *   The Webform submission that was just inserted into the database.
  */
 function sfweb2lead_webform_webform_submission_insert($node, $submission) {
-  if (!isset($node->use_sfweb2lead_webform) || ($node->use_sfweb2lead_webform != TRUE)) {
+  $result = db_select('sfweb2lead_webform', 's')
+    ->fields('s', array('active', 'lead_source'))
+    ->condition('vid', $node->vid)
+    ->execute()->fetchAssoc();
+  if ( !isset($result['active']) ) {
+    return;
+  }
+  if ($result['active'] != TRUE) {
+    return;
+  }
+  if ($submission->is_draft == 1 ) {
     return;
   }
   $posted_fields = array();
@@ -135,8 +166,8 @@ function sfweb2lead_webform_webform_submission_insert($node, $submission) {
   }
 
   $curl = curl_init();
-  // $data is an array of processed webform data about to be passed to salesforce  
-  $data = sfweb2lead_webform_hidden_fields($node);
+  // $data is an array of processed webform data about to be passed to salesforce
+  $data = sfweb2lead_webform_hidden_fields($node, $result['lead_source']);
   $sfweb2lead_webform_mapping_settings = variable_get('sfweb2lead_webform_mapping_settings', array());
   $sfweb2lead_webform_url = variable_get('sfweb2lead_webform_url', 'https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8');
   foreach ($posted_fields as $post_field => $post_field_value) {
@@ -145,7 +176,7 @@ function sfweb2lead_webform_webform_submission_insert($node, $submission) {
   $context = array(
     // webform submission object containing data like $submission->nid (webform node id), $submission->uid (uid of person)..
     'webform_submission' => $submission,
-  );  
+  );
   drupal_alter('sfweb2lead_webform_posted_data', $data, $context);
   // Insert the single value fields.
   $query_data = http_build_query($data, '', '&');
@@ -203,11 +234,10 @@ function sfweb2lead_webform_to_salesforce_field($field, $sfweb2lead_webform_mapp
  * Add meta-data fields to the form submission.
  *
  * @param $node
- *
+ * @param $source_code
  * @return
  */
-function sfweb2lead_webform_hidden_fields($node) {
-  $source_code = $node->lead_source_sfweb2lead_webform;
+function sfweb2lead_webform_hidden_fields($node, $source_code = '') {
   // @TODO looking for community feedback whether to deactivate the fallback position of leadsource as node title or page title.
   if (empty($source_code)) {
     if (!empty($node->title)) {
@@ -223,71 +253,6 @@ function sfweb2lead_webform_hidden_fields($node) {
     'submit' => 'submit',
     'lead_source' => $source_code,
   );
-}
-
-/**
- * Implements hook_node_insert()
- *  Stores salesforce webform settings.
- *
- * @param $node
- */
-function sfweb2lead_webform_node_insert($node) {
-  _sfweb2lead_webform_update_node($node);
-}
-
-/**
- * Implements hook_node_save()
- *  Stores updated salesforce webform settings.
- *
- * @param $node
- */
-function sfweb2lead_webform_node_update($node) {
-  _sfweb2lead_webform_update_node($node);
-}
-
-/**
- * Implements hook_node_delete()
- *   Deletes salesforce settings when a webform node is deleted.
- *
- * @param $node
- */
-function sfweb2lead_webform_node_delete($node) {
-  if ($node->type == 'webform') {
-    if (isset($node->use_sfweb2lead_webform) ) {
-      $deleted = db_delete('sfweb2lead_webform')
-        ->condition('vid', $node->vid)
-        ->execute();
-    }
-  }
-}
-
-/**
- * Implements hook_node_load()
- *   Stores salesforce settings when a webform node is loaded.
- *
- * @param $node
- *
- */
-function sfweb2lead_webform_node_load($nodes, $types) {
-  foreach ($nodes as $node) {
-    if ($node->type == 'webform') {
-      $result = db_select('sfweb2lead_webform', 's')
-        ->fields('s', array('active', 'lead_source'))
-        ->condition('vid', $node->vid)
-        ->execute();
-      while ($record = $result->fetchAssoc()) {
-        // The result has either 0 or 1 rows, if we have one then add it to the node.
-        if ($record['active'] == '1' ) {
-          $node->use_sfweb2lead_webform = 1;
-          $node->lead_source_sfweb2lead_webform = $record['lead_source'];
-        }
-        else {
-          $node->use_sfweb2lead_webform = 0;
-          $node->lead_source_sfweb2lead_webform = $record['lead_source'];
-        }
-      }
-    }
-  }
 }
 
 /**
@@ -340,7 +305,7 @@ EOT;
     '#type' => 'item',
     '#title' => t('Webform Fields to Salesforce Fields Mapping Table'),
     '#description' => t('Legend: KEY is the Webform Field Key, VALUE is the Salesforce Web-To-Lead form field'),
-  );  
+  );
   $form['options'] = array(
     // @TODO: Figure out a way to change the key/value titles?
     '#type' => 'options',
@@ -378,23 +343,4 @@ function sfweb2lead_webform_form_submit($form, &$form_state) {
   variable_set('sfweb2lead_webform_url', $form_state['values']['url']);
   variable_set('sfweb2lead_webform_debug', $form_state['values']['debug']);
   drupal_set_message(t('Salesforce Web2Lead Configuration Settings Saved!'));
-}
-/**
- * Helper function to save sfweb2lead_webform info when a node is created/updated.
- *
- * @param $node
- */
-function _sfweb2lead_webform_update_node($node) {
-  if ($node->type == 'webform') {
-    if (isset($node->use_sfweb2lead_webform)) {
-      // Store the  Webform SalesForce settings.
-      $query = db_merge('sfweb2lead_webform')
-        ->key(array('vid' => $node->vid))
-        ->fields(array(
-          'active' => $node->use_sfweb2lead_webform,
-          'lead_source' => $node->lead_source_sfweb2lead_webform,
-        ))
-        ->execute();
-    }
-  }
 }

@@ -55,3 +55,11 @@ function sfweb2lead_webform_uninstall() {
   variable_del('sfweb2lead_webform_mapping_settings');
   variable_del('sfweb2lead_webform_debug');
 }
+
+/**
+ * added another menu item node/%webform_menu/webform/sfweb2lead_webform
+ * make sure menu rebuild happens on update 7.1.x first stable release
+ */
+function sfweb2lead_webform_update_7100() {
+  menu_rebuild();
+}

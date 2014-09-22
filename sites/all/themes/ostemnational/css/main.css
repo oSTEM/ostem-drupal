@@ -263,6 +263,9 @@ ul {
 ul ul, ul ol, ol ul, ol ol {
   margin-top: 0; }
 
+table {
+  width: 100%; }
+
 .left-float-img {
   float: left;
   margin-right: 1em;
@@ -293,79 +296,8 @@ form .field-type-datetime fieldset label {
   display: none; }
 form .field-type-datetime .date-padding {
   padding: 0; }
-form .webform-component-fieldset {
-  margin: 1em 0;
-  padding: 0 1em;
-  border: 1px solid #adadad;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px; }
-  form .webform-component-fieldset legend {
-    padding: 0.25em 0.5em;
-    font-family: "Lato", Segoe, Calibiri, sans-serif;
-    font-weight: bold;
-    font-size: 1.25em; }
-  form .webform-component-fieldset.collapsible .fieldset-legend {
-    padding-left: 18px; }
-    form .webform-component-fieldset.collapsible .fieldset-legend a {
-      color: inherit;
-      text-decoration: none !important; }
-  form .webform-component-fieldset.collapsible.collapsed {
-    height: 1.1em;
-    margin-bottom: 2em; }
-form .webform-component label, form .form-item label {
-  padding-bottom: 0.25em;
-  font-family: "Lato", Segoe, Calibiri, sans-serif;
-  font-weight: bold;
-  font-size: 1.1em; }
-  form .webform-component label.option, form .form-item label.option {
-    padding-bottom: 0;
-    padding-left: 0.5em;
-    font-weight: normal;
-    font-family: Tahoma, Verdana, sans-serif;
-    font-size: 1em; }
-form .webform-component input[type=text], form .webform-component input[type=email], form .webform-component input[type=tel], form .webform-component input[type=number], form .webform-component input[type=password], form .webform-component input[type=date], form .webform-component select, form .webform-component textarea, form .form-item input[type=text], form .form-item input[type=email], form .form-item input[type=tel], form .form-item input[type=number], form .form-item input[type=password], form .form-item input[type=date], form .form-item select, form .form-item textarea {
-  padding: 0.25em 0.5em;
-  border: 2px solid #adadad;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  -webkit-transition: border-color 0.3s;
-  -moz-transition: border-color 0.3s;
-  -o-transition: border-color 0.3s;
-  transition: border-color 0.3s; }
-  form .webform-component input[type=text]:focus, form .webform-component input[type=email]:focus, form .webform-component input[type=tel]:focus, form .webform-component input[type=number]:focus, form .webform-component input[type=password]:focus, form .webform-component input[type=date]:focus, form .webform-component select:focus, form .webform-component textarea:focus, form .form-item input[type=text]:focus, form .form-item input[type=email]:focus, form .form-item input[type=tel]:focus, form .form-item input[type=number]:focus, form .form-item input[type=password]:focus, form .form-item input[type=date]:focus, form .form-item select:focus, form .form-item textarea:focus {
-    border-color: #7ab1f9; }
-  form .webform-component input[type=text], form .webform-component input[type=text]:active, form .webform-component input[type=text]:focus, form .webform-component input[type=email], form .webform-component input[type=email]:active, form .webform-component input[type=email]:focus, form .webform-component input[type=tel], form .webform-component input[type=tel]:active, form .webform-component input[type=tel]:focus, form .webform-component input[type=number], form .webform-component input[type=number]:active, form .webform-component input[type=number]:focus, form .webform-component input[type=password], form .webform-component input[type=password]:active, form .webform-component input[type=password]:focus, form .webform-component input[type=date], form .webform-component input[type=date]:active, form .webform-component input[type=date]:focus, form .webform-component select, form .webform-component select:active, form .webform-component select:focus, form .webform-component textarea, form .webform-component textarea:active, form .webform-component textarea:focus, form .form-item input[type=text], form .form-item input[type=text]:active, form .form-item input[type=text]:focus, form .form-item input[type=email], form .form-item input[type=email]:active, form .form-item input[type=email]:focus, form .form-item input[type=tel], form .form-item input[type=tel]:active, form .form-item input[type=tel]:focus, form .form-item input[type=number], form .form-item input[type=number]:active, form .form-item input[type=number]:focus, form .form-item input[type=password], form .form-item input[type=password]:active, form .form-item input[type=password]:focus, form .form-item input[type=date], form .form-item input[type=date]:active, form .form-item input[type=date]:focus, form .form-item select, form .form-item select:active, form .form-item select:focus, form .form-item textarea, form .form-item textarea:active, form .form-item textarea:focus {
-    outline: 0;
-    ouline: none;
-    font-family: Tahoma, Verdana, sans-serif;
-    color: inherit !important;
-    background: white; }
-form .webform-component input.error, form .form-item input.error {
-  border-color: #ce4646; }
-  form .webform-component input.error + label.option, form .form-item input.error + label.option {
-    color: #ce4646; }
-form .webform-component .resizable-textarea textarea, form .form-item .resizable-textarea textarea {
-  -moz-border-bottom-left-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  border-bottom-left-radius: 0;
-  -moz-border-bottom-right-radius: 0;
-  -webkit-border-bottom-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: none;
-  -moz-opacity: 1 !important;
-  -webkit-opacity: 1 !important;
-  opacity: 1 !important; }
-form .webform-component .resizable-textarea .grippie, form .form-item .resizable-textarea .grippie {
-  border: 1px solid #adadad;
-  background-color: rgba(0, 0, 0, 0.075);
-  border-left-width: 2px;
-  border-right-width: 2px; }
-form .webform-component .description, form .form-item .description {
-  margin-top: 0.5em; }
-form .webform-component .form-required, form .form-item .form-required {
-  color: #ce4646; }
+#block-azure-acs-identity-providers ~ #block-system-main form .messages {
+  margin-right: 45%; }
 form button, form input[type=submit], form input[type=button], form input[type=reset] {
   display: inline-block;
   vertical-align: baseline;
@@ -408,6 +340,101 @@ form button, form input[type=submit], form input[type=button], form input[type=r
     top: 1px; }
   form button + button, form button + input[type=submit], form button + input[type=button], form button + input[type=reset], form input[type=submit] + button, form input[type=submit] + input[type=submit], form input[type=submit] + input[type=button], form input[type=submit] + input[type=reset], form input[type=button] + button, form input[type=button] + input[type=submit], form input[type=button] + input[type=button], form input[type=button] + input[type=reset], form input[type=reset] + button, form input[type=reset] + input[type=submit], form input[type=reset] + input[type=button], form input[type=reset] + input[type=reset] {
     margin-left: 0.5em; }
+
+#edit-subscription {
+  margin-top: 1em; }
+  #user-register-form #edit-subscription {
+    margin: 1em 0;
+    padding: 0 1em;
+    border: 1px solid #adadad;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px; }
+    #user-register-form #edit-subscription legend {
+      padding: 0.25em 0.5em;
+      font-size: 1.25em; }
+  #edit-subscription legend {
+    font-family: "Lato", Segoe, Calibiri, sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 0.5em; }
+  #edit-subscription .fieldset-wrapper > a + #edit-submit {
+    margin-left: 1em; }
+
+.webform-component-fieldset {
+  margin: 1em 0;
+  padding: 0 1em;
+  border: 1px solid #adadad;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px; }
+  .webform-component-fieldset legend {
+    padding: 0.25em 0.5em;
+    font-family: "Lato", Segoe, Calibiri, sans-serif;
+    font-weight: bold;
+    font-size: 1.25em; }
+  .webform-component-fieldset.collapsible .fieldset-legend {
+    padding-left: 18px; }
+    .webform-component-fieldset.collapsible .fieldset-legend a {
+      color: inherit;
+      text-decoration: none !important; }
+  .webform-component-fieldset.collapsible.collapsed {
+    height: 1.1em;
+    margin-bottom: 2em; }
+
+.webform-component label, .form-item label {
+  padding-bottom: 0.25em;
+  font-family: "Lato", Segoe, Calibiri, sans-serif;
+  font-weight: bold;
+  font-size: 1.1em; }
+  .webform-component label.option, .form-item label.option {
+    padding-bottom: 0;
+    padding-left: 0.5em;
+    font-weight: normal;
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 1em; }
+.webform-component input[type=text], .webform-component input[type=email], .webform-component input[type=tel], .webform-component input[type=number], .webform-component input[type=password], .webform-component input[type=date], .webform-component select, .webform-component textarea, .form-item input[type=text], .form-item input[type=email], .form-item input[type=tel], .form-item input[type=number], .form-item input[type=password], .form-item input[type=date], .form-item select, .form-item textarea {
+  padding: 0.25em 0.5em;
+  border: 2px solid #adadad;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-transition: border-color 0.3s;
+  -moz-transition: border-color 0.3s;
+  -o-transition: border-color 0.3s;
+  transition: border-color 0.3s; }
+  .webform-component input[type=text]:focus, .webform-component input[type=email]:focus, .webform-component input[type=tel]:focus, .webform-component input[type=number]:focus, .webform-component input[type=password]:focus, .webform-component input[type=date]:focus, .webform-component select:focus, .webform-component textarea:focus, .form-item input[type=text]:focus, .form-item input[type=email]:focus, .form-item input[type=tel]:focus, .form-item input[type=number]:focus, .form-item input[type=password]:focus, .form-item input[type=date]:focus, .form-item select:focus, .form-item textarea:focus {
+    border-color: #7ab1f9; }
+  .webform-component input[type=text], .webform-component input[type=text]:active, .webform-component input[type=text]:focus, .webform-component input[type=email], .webform-component input[type=email]:active, .webform-component input[type=email]:focus, .webform-component input[type=tel], .webform-component input[type=tel]:active, .webform-component input[type=tel]:focus, .webform-component input[type=number], .webform-component input[type=number]:active, .webform-component input[type=number]:focus, .webform-component input[type=password], .webform-component input[type=password]:active, .webform-component input[type=password]:focus, .webform-component input[type=date], .webform-component input[type=date]:active, .webform-component input[type=date]:focus, .webform-component select, .webform-component select:active, .webform-component select:focus, .webform-component textarea, .webform-component textarea:active, .webform-component textarea:focus, .form-item input[type=text], .form-item input[type=text]:active, .form-item input[type=text]:focus, .form-item input[type=email], .form-item input[type=email]:active, .form-item input[type=email]:focus, .form-item input[type=tel], .form-item input[type=tel]:active, .form-item input[type=tel]:focus, .form-item input[type=number], .form-item input[type=number]:active, .form-item input[type=number]:focus, .form-item input[type=password], .form-item input[type=password]:active, .form-item input[type=password]:focus, .form-item input[type=date], .form-item input[type=date]:active, .form-item input[type=date]:focus, .form-item select, .form-item select:active, .form-item select:focus, .form-item textarea, .form-item textarea:active, .form-item textarea:focus {
+    outline: 0;
+    ouline: none;
+    font-family: Tahoma, Verdana, sans-serif;
+    color: inherit !important;
+    background: white; }
+.webform-component input.error, .form-item input.error {
+  border-color: #ce4646; }
+  .webform-component input.error + label.option, .form-item input.error + label.option {
+    color: #ce4646; }
+.webform-component .resizable-textarea textarea, .form-item .resizable-textarea textarea {
+  -moz-border-bottom-left-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -moz-border-bottom-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+  -moz-opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  opacity: 1 !important; }
+.webform-component .resizable-textarea .grippie, .form-item .resizable-textarea .grippie {
+  border: 1px solid #adadad;
+  background-color: rgba(0, 0, 0, 0.075);
+  border-left-width: 2px;
+  border-right-width: 2px; }
+.webform-component .description, .form-item .description {
+  margin-top: 0.5em; }
+.webform-component .form-required, .form-item .form-required {
+  color: #ce4646; }
 
 header {
   background: #f4f4f4;

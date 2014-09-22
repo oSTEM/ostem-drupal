@@ -36,6 +36,7 @@ function ostemnational_block_list_alter(&$blocks) {
 function ostemnational_form_alter(&$form, &$form_state, $form_id) {
     
     if (isset($_SESSION) && !empty($_SESSION['azure_acs_data'])) {
+        // Azure ACS form updates
         
         $mail = isset($_SESSION['azure_acs_data']['emailaddress']) ? $_SESSION['azure_acs_data']['emailaddress'] : '';
         $fname = isset($_SESSION['azure_acs_data']['givenname']) ? $_SESSION['azure_acs_data']['givenname'] : '';
@@ -55,7 +56,6 @@ function ostemnational_form_alter(&$form, &$form_state, $form_id) {
             && isset($_SESSION['azure_acs_data']['AccessToken'])) {
             $url = "https://graph.facebook.com/" . $_SESSION['azure_acs_data']['nameidentifier']
                 . "?access_token=" . $_SESSION['azure_acs_data']['AccessToken'];
-            $url = 'https://rest.db.ripe.net/ripe/inetnum/192.168.0.1.json';
             $ch = curl_init();
             $timeout = 500;
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -108,5 +108,35 @@ function ostemnational_form_alter(&$form, &$form_state, $form_id) {
           '#type' => 'value',
           '#value' => $_SESSION['azure_acs_data'],
         );
+    }
+    
+    if(isset($form['subscription'])) {
+        // Stripe subscription form alter
+
+        $existingCustomer = isset($form['customer_id']) && !empty($form['customer_id']['#value']);
+        
+        if($existingCustomer) {
+            $form['subscription']['#title'] = "Update your monthly donation";        
+        }
+        else {
+            $form['subscription']['#title'] = "Please consider a monthly donation to oSTEM";        
+        }
+        
+        if(isset($form['subscription']['plan_id'])) {
+            $oldTitle = $form['subscription']['plan_id']['#title'];
+            $form['subscription']['plan_id']['#title'] = str_replace('Subscription Plan', 'Contribution Level', $oldTitle);
+            
+            
+            foreach($form['subscription']['plan_id']['#options'] as $optId => $optDisplay) {
+                if($optDisplay == "--") {
+                    if(!$existingCustomer) {
+                        $form['subscription']['plan_id']['#options'][$optId] = "No Contribution";                    
+                    }
+                    else if($existingCustomer && $form['new_subscription']['#value']) {
+                        unset($form['subscription']['plan_id']['#options'][$optId]);
+                    }
+                }
+            }
+        }
     }
 }

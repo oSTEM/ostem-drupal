@@ -1,6 +1,6 @@
 name = oSTEM National Org Frontpage
 description = Manages the oSTEM National organization homepage. Including photos and text.
-package = Added Functionality
+package = oSTEM Modules
 core = 7.x
 configure = admin/config/ostem/ostem_frontpage
 files[] = ostem_frontpage.module

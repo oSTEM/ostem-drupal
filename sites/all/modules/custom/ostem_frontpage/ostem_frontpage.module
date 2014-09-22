@@ -50,7 +50,18 @@ function ostem_frontpage_menu() {
 	);
 
 	return $items;
+}
 
+/**
+ * Implements hook_permission().
+ */
+function ostem_frontpage_permission() {
+    return array(
+      'administer ostem_frontpage settings' => array(
+        'title' => t('Administer oSTEM Frontpage'),
+        'description' => t('Configure the oSTEM Frontpage layout and settings.'),
+      ),
+    );
 }
 
 function ostem_frontpage_admin() {

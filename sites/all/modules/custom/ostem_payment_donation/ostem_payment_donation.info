@@ -1,0 +1,8 @@
+name = oSTEM Payment Donation Form Extension
+description = Extends the Payemnt Donation Form module with custom functionality.
+package = oSTEM Modules
+core = 7.x
+dependencies[] = payment_donation
+dependencies[] = payment
+configure = admin/config/ostem/ostem_payment_donation
+files[] = ostem_payment_donation.module

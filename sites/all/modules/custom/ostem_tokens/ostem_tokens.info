@@ -1,6 +1,6 @@
 name = oSTEM Custom Tokens
 description = Enables oSTEM custom tokens.
-package = Added Functionality
+package = oSTEM Modules
 core = 7.x
 dependencies[] = token
 files[] = ostem_tokens.module

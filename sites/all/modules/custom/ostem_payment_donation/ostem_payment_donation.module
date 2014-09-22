@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function ostem_payment_donation_menu() {
+
+	$items['admin/config/ostem'] = array(
+		'title' => 'oSTEM Module Settings',
+		'position' => 'left',
+		'weight' => -100,
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('administer site configuration'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	);
+
+	$items['admin/config/ostem/ostem_payment_donation'] = array(
+		'title' => 'Donation Form Settings',
+		'description' => 'Manage settings for the oSTEM Donation Form.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('ostem_payment_donation_admin'),
+		'access arguments' => array('administer ostem_payment_donation settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ostem_payment_donation_permission() {
+    return array(
+      'administer ostem_payment_donation settings' => array(
+        'title' => t('Administer oSTEM Payment Donation'),
+        'description' => t('Configure the oSTEM Payment Donation mail and form settings.'),
+      ),
+    );
+}
+
+function ostem_payment_donation_admin() {
+	$form = array();
+
+	$button_text = variable_get('ostem_payment_donation_button_text', '');
+	$mail_text = variable_get('ostem_payment_donation_mail_text', '');
+
+    $form['ostem_payment_donation_button_text'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Donation Submit Button Text'),
+		'#default_value' => empty($button_text) ? '' : $button_text,
+		'#description' => t("This is the text that will appear in the submit button on the donation form."),
+	);
+    
+	$form['ostem_payment_donation_mail_text'] = array(
+		'#type' => 'text_format',
+		'#title' => t('Donation Success Email Message'),
+		'#default_value' => empty($mail_text['value']) ? '' : $mail_text['value'],
+		'#description' => t("This email message will be sent to the donor upon successful completion of the donation payment."),
+        '#element_validate' => array('token_element_validate'),
+        '#token_types' => array('payment')
+	);
+    
+    $form['token_help'] = array(
+        '#theme' => 'token_tree_link',
+        '#token_types' => array('user', 'payment'),
+        '#global_types' => FALSE,
+        '#click_insert' => TRUE
+    );
+
+	return system_settings_form($form);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ostem_payment_donation_form_alter(&$form, &$form_state, $form_id) {
+    if($form_id == 'payment_donation_form') {
+        $button_text = variable_get('ostem_payment_donation_button_text', '');
+        if(!empty($button_text['value']))
+            $form['pay']['#value'] = t($button_text['value']);
+        array_unshift($form['#validate'], 'ostem_payment_donation_form_validate');
+    }
+}
+
+function ostem_payment_donation_form_validate(array $form, array &$form_state) {
+    /** @var Payment $payment */
+    $payment =& $form_state['payment'];
+    $status = $payment->getStatus();
+    $success = payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_SUCCESS);
+    $mail_text = variable_get('ostem_payment_donation_mail_text', '');
+    //error_log($success);
+}

@@ -55,6 +55,7 @@ function ostem_payment_donation_admin() {
 	$form['ostem_payment_donation_mail_text'] = array(
 		'#type' => 'text_format',
 		'#title' => t('Donation Success Email Message'),
+        '#format' => 'full_html',
 		'#default_value' => empty($mail_text['value']) ? '' : $mail_text['value'],
 		'#description' => t("This email message will be sent to the donor upon successful completion of the donation payment."),
         '#element_validate' => array('token_element_validate'),
@@ -63,8 +64,8 @@ function ostem_payment_donation_admin() {
     
     $form['token_help'] = array(
         '#theme' => 'token_tree_link',
-        '#token_types' => array('user', 'payment'),
-        '#global_types' => FALSE,
+        '#token_types' => array('payment'),
+        '#global_types' => TRUE,
         '#click_insert' => TRUE
     );
 
@@ -76,18 +77,75 @@ function ostem_payment_donation_admin() {
  */
 function ostem_payment_donation_form_alter(&$form, &$form_state, $form_id) {
     if($form_id == 'payment_donation_form') {
+        
+        $form['amount']['#required'] = TRUE;
+        
+        $form = array_merge(array(
+            'email_address' => array(
+                '#type' => 'textfield',
+                '#title' => t("Email Address"),
+                '#description' => t("Your payment confirmation and receipt will be send this email address."),
+                '#required' => TRUE,
+            )
+        ), $form);
+        
         $button_text = variable_get('ostem_payment_donation_button_text', '');
-        if(!empty($button_text['value']))
-            $form['pay']['#value'] = t($button_text['value']);
-        array_unshift($form['#validate'], 'ostem_payment_donation_form_validate');
+        if(!empty($button_text))
+            $form['pay']['#value'] = t($button_text);
+        
+        array_push($form['#validate'], 'ostem_payment_donation_form_validate');
     }
 }
 
 function ostem_payment_donation_form_validate(array $form, array &$form_state) {
+    $email = $form_state['values']['email_address'];
+    if (!valid_email_address($email)) {
+        form_set_error('[submitted][email_address]', t('The email address appears to be invalid.'));
+    }
+    
     /** @var Payment $payment */
     $payment =& $form_state['payment'];
-    $status = $payment->getStatus();
-    $success = payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_SUCCESS);
-    $mail_text = variable_get('ostem_payment_donation_mail_text', '');
-    //error_log($success);
+    $finish_callback = $payment->finish_callback;
+    $payment->context_data['ostem_payment_donation_finish'] = $finish_callback;
+    $payment->context_data['ostem_payment_donation_email'] = $email;
+    $payment->finish_callback = 'ostem_payment_donation_finish';
+}
+
+function ostem_payment_donation_finish(Payment $payment) {
+    if(payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_SUCCESS)) {
+        
+        $mail_text = variable_get('ostem_payment_donation_mail_text', '');
+        if(empty($mail_text['value'])) return;
+        
+        $email_body = token_replace($mail_text['value'], array('payment' => $payment));
+        $to = $payment->context_data['ostem_payment_donation_email'];
+        $from = $from = variable_get('system_mail', 'oSTEM <info@ostem.org>');
+        
+        $module = 'ostem_payment_donation';
+        $mail_token = microtime();
+        
+        $message = array(
+            'id' => $module . '_' . $mail_token,
+            'to' => $to,
+            'subject' => "oSTEM Donation Confirmation",
+            'body' => array($email_body),
+            'headers' => array(
+                'From' => $from,
+                'Sender' => $from,
+                'Return-Path' => $from
+            )
+        );
+        
+        $system = drupal_mail_system($module, $mail_token);
+        $message = $system->format($message);
+        if(!$system->mail($message)) {
+            watchdog('', "Failed to send donation confirmation email. Payment ID: %pmid, Email: %email", array(
+                '%pmid' => $payment->pid,
+                '%email' => $to
+            ), WATCHDOG_ERROR);
+            drupal_set_message("Failed to send your donation confirmation email. Please contact info@ostem.org for a receipt.", 'error');
+        }
+    }
+    
+    call_user_func($payment->context_data['ostem_payment_donation_finish'], $payment);
 }

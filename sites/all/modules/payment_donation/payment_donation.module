@@ -190,13 +190,13 @@ function payment_donation_finish(Payment $payment) {
     $view = ' ' . l(t('View payment'), 'payment/' . $payment->pid) . '.';
   }
   if (payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_PENDING)) {
-    drupal_set_message(t('Your payment is still being processed.') . $view);
+    drupal_set_message(t('Your payment is still being processed.') . $view, 'warning');
   }
   elseif (payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_SUCCESS)) {
     drupal_set_message(t('Your payment was successfully completed.') . $view);
   }
   elseif (payment_status_is_or_has_ancestor($payment->getStatus()->status, PAYMENT_STATUS_FAILED)) {
-    drupal_set_message(t('Your payment failed.') . $view);
+    drupal_set_message(t('Your payment failed.') . $view, 'error');
   }
 
   drupal_goto($payment->context_data['destination']);

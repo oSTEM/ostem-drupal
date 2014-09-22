@@ -17,4 +17,6 @@ jQuery(document).ready(function ($) {
             form.data('stripeNoToken', false);
         }
     }).change();
+
+    $('#payment-donation-form').find('input[type="submit"], button[type="submit"]').attr('data-stripe', true);
 });

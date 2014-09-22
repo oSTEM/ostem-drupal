@@ -162,7 +162,7 @@ form {
 		padding: .75em 1.5em;
 		@include background-vertical-gradient(#363636, 0%, #595959, 100%);
 		background-repeat: repeat-x;
-		@include transition(background-position .3s);
+		@include transition(background-position .3s, opacity .3s);
 		@include box-shadow(0 1px 3px black(.5));
 		border: none;
 		border-bottom: 1px solid black(.25);
@@ -185,6 +185,10 @@ form {
 		&:active {
 			top: 1px;
 		}
+
+        &[disabled], &.disabled {
+            opacity: .8;
+        }
 				
 		+ button, + input[type=submit], + input[type=button], + input[type=reset] {
 			margin-left: .5em;
@@ -219,6 +223,13 @@ form {
         > a + #edit-submit {
             margin-left: 1em;
         }
+    }
+}
+
+#payment-donation-form {
+
+    #edit-payment-method-pmid-title {
+        margin-bottom: 0;
     }
 }
 	

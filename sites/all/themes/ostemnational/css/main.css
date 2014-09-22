@@ -314,10 +314,10 @@ form button, form input[type=submit], form input[type=button], form input[type=r
   background-image: linear-gradient(to bottom, #363636 0%, #595959 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#363636', endColorstr='#595959',GradientType=0 );
   background-repeat: repeat-x;
-  -webkit-transition: background-position 0.3s;
-  -moz-transition: background-position 0.3s;
-  -o-transition: background-position 0.3s;
-  transition: background-position 0.3s;
+  -webkit-transition: background-position 0.3s, opacity 0.3s;
+  -moz-transition: background-position 0.3s, opacity 0.3s;
+  -o-transition: background-position 0.3s, opacity 0.3s;
+  transition: background-position 0.3s, opacity 0.3s;
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -338,6 +338,8 @@ form button, form input[type=submit], form input[type=button], form input[type=r
     background-position: center 1em; }
   form button:active, form input[type=submit]:active, form input[type=button]:active, form input[type=reset]:active {
     top: 1px; }
+  form button[disabled], form button.disabled, form input[type=submit][disabled], form input[type=submit].disabled, form input[type=button][disabled], form input[type=button].disabled, form input[type=reset][disabled], form input[type=reset].disabled {
+    opacity: 0.8; }
   form button + button, form button + input[type=submit], form button + input[type=button], form button + input[type=reset], form input[type=submit] + button, form input[type=submit] + input[type=submit], form input[type=submit] + input[type=button], form input[type=submit] + input[type=reset], form input[type=button] + button, form input[type=button] + input[type=submit], form input[type=button] + input[type=button], form input[type=button] + input[type=reset], form input[type=reset] + button, form input[type=reset] + input[type=submit], form input[type=reset] + input[type=button], form input[type=reset] + input[type=reset] {
     margin-left: 0.5em; }
 
@@ -360,6 +362,9 @@ form button, form input[type=submit], form input[type=button], form input[type=r
     padding-bottom: 0.5em; }
   #edit-subscription .fieldset-wrapper > a + #edit-submit {
     margin-left: 1em; }
+
+#payment-donation-form #edit-payment-method-pmid-title {
+  margin-bottom: 0; }
 
 .webform-component-fieldset {
   margin: 1em 0;

@@ -80,10 +80,13 @@ function ostem_payment_donation_form_alter(&$form, &$form_state, $form_id) {
         
         $form['amount']['#required'] = TRUE;
         
+        global $user;
+        
         $form = array_merge(array(
             'email_address' => array(
                 '#type' => 'textfield',
                 '#title' => t("Email Address"),
+                '#default_value' => $user->mail,
                 '#description' => t("Your payment confirmation and receipt will be send this email address."),
                 '#required' => TRUE,
             )

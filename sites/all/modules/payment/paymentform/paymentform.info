@@ -7,9 +7,9 @@ core = 7.x
 files[] = tests/paymentform.test
 files[] = tests/PaymentformWebTestCase.test
 
-; Information added by Drupal.org packaging script on 2014-10-11
-version = "7.x-1.12"
+; Information added by Drupal.org packaging script on 2014-09-03
+version = "7.x-1.11"
 core = "7.x"
 project = "payment"
-datestamp = "1413068936"
+datestamp = "1409728453"
 

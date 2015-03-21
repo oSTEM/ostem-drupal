@@ -457,7 +457,7 @@ header {
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  border: 1px solid grey;
+  border: 1px solid gray;
   border-left: 0;
   border-right: 0; }
   #menu_wrap > .region {
@@ -868,7 +868,7 @@ header {
 .block-azure-acs {
   width: 40%;
   float: right;
-  margin-left: 50px;
+  margin-left: 25px;
   margin-top: 20px; }
   .block-azure-acs .links {
     display: block;

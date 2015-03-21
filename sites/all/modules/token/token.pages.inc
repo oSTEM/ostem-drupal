@@ -25,7 +25,7 @@ function theme_token_tree_link($variables) {
     $variables['options']['query']['options'] = array();
   }
   $variables['options']['query']['options'] += $tree_variables;
-  
+
   // We should never pass the dialog option to theme_token_tree(). It is only
   // used for this function.
   unset($variables['options']['query']['options']['dialog']);

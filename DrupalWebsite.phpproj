@@ -9,12 +9,13 @@
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
     <AssemblyName>DrupalWebsite</AssemblyName>
     <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-    <Server>IISExpress</Server>
+    <Server>Custom</Server>
     <PublishEvent>None</PublishEvent>
     <PHPDevAutoPort>True</PHPDevAutoPort>
     <PHPDevPort>45869</PHPDevPort>
     <PHPDevHostName>localhost</PHPDevHostName>
     <IISProjectUrl>https://localhost:44300/</IISProjectUrl>
+    <CustomServerUrl>http://dev.ostem.org</CustomServerUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -387,6 +388,11 @@
     <Content Include="includes\database\sqlite\query.inc" />
     <Content Include="includes\database\sqlite\schema.inc" />
     <Content Include="includes\database\sqlite\select.inc" />
+    <Content Include="includes\database\sqlsrv\database.inc" />
+    <Content Include="includes\database\sqlsrv\install.inc" />
+    <Content Include="includes\database\sqlsrv\query.inc" />
+    <Content Include="includes\database\sqlsrv\schema.inc" />
+    <Content Include="includes\database\sqlsrv\select.inc" />
     <Content Include="includes\date.inc" />
     <Content Include="includes\entity.inc" />
     <Content Include="includes\errors.inc" />
@@ -2511,6 +2517,14 @@
     <Content Include="sites\all\modules\date\tests\rrule.ics" />
     <Content Include="sites\all\modules\date\tests\USHolidays.ics" />
     <Content Include="sites\all\modules\date\tests\Yahoo.csv" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.admin.inc" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.batch.inc" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.drush.inc" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.inc" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.info" />
+    <Content Include="sites\all\modules\dbtng_migrator\dbtng_migrator.module" />
+    <Content Include="sites\all\modules\dbtng_migrator\LICENSE.txt" />
+    <Content Include="sites\all\modules\dbtng_migrator\README" />
     <Content Include="sites\all\modules\delta\CHANGELOG.txt" />
     <Content Include="sites\all\modules\delta\delta.info" />
     <Content Include="sites\all\modules\delta\delta.install" />
@@ -3851,6 +3865,7 @@
     <Folder Include="includes\database\mysql\" />
     <Folder Include="includes\database\pgsql\" />
     <Folder Include="includes\database\sqlite\" />
+    <Folder Include="includes\database\sqlsrv\" />
     <Folder Include="includes\filetransfer\" />
     <Folder Include="misc\" />
     <Folder Include="misc\farbtastic\" />
@@ -4208,6 +4223,7 @@
     <Folder Include="sites\all\modules\date\date_views\includes\" />
     <Folder Include="sites\all\modules\date\date_views\theme\" />
     <Folder Include="sites\all\modules\date\tests\" />
+    <Folder Include="sites\all\modules\dbtng_migrator\" />
     <Folder Include="sites\all\modules\delta\" />
     <Folder Include="sites\all\modules\delta\delta_blocks\" />
     <Folder Include="sites\all\modules\delta\delta_blocks\includes\" />

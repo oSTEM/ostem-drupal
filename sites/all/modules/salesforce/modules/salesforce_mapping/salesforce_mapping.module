@@ -206,11 +206,12 @@ function salesforce_mapping_theme($existing, $type, $theme, $path) {
  *   The requested entity or FALSE if none was found.
  */
 function salesforce_mapping_object_load_by_drupal($entity_type, $entity_id, $reset = FALSE) {
+  if(((int) $entity_id) < 1) return FALSE;
   $conditions = array(
-    'entity_id' => $entity_id,
+    'entity_id' => (int) $entity_id,
     'entity_type' => $entity_type,
   );
-  $results = entity_load('salesforce_mapping_object', FALSE, $conditions, $reset);
+  $results = entity_load('salesforce_mapping_object', FALSE, $conditions, $reset);      
   return !empty($results) ? reset($results) : FALSE;
 }
 

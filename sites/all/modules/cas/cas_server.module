@@ -145,9 +145,16 @@ function cas_server_validate() {
   $ticket = isset($_REQUEST['ticket']) ? $_REQUEST['ticket'] : '';
   $service = isset($_REQUEST['service']) ? $_REQUEST['service'] : '';
   $user_name = _cas_server_validate($service, $ticket);
-  if ($user_name) {
+
+  if($user_name) {
+
+    $account = user_load_by_name($user_name);
+    $user_identifier = $user_name;
+
+    drupal_alter("cas_server_user_validate_identifier", $user_identifier, $account);
+
     print "yes\n";
-    print "$user_name\n";
+    print "$user_identifier\n";
   }
   else {
     print "no\n";

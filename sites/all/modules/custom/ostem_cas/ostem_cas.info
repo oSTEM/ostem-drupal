@@ -1,0 +1,6 @@
+name = oSTEM CAS Customization
+description = Updates user identifier and attributes provided by CAS
+package = oSTEM Modules
+core = 7.x
+dependencies[] = cas_server
+files[] = ostem_cas.module

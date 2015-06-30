@@ -3,7 +3,7 @@
 /**
  * Implements hook_cas_server_user_validate_identifier_alter()
  */
-function ostem_cas_cas_server_user_validate_identifier_alter($user_id, $user) {
+function ostem_cas_cas_server_user_validate_identifier_alter(&$user_id, $user) {
 	if(!$user) $user_id = false;
     else $user_id = $user->uid;
 }

@@ -1,0 +1,6 @@
+name = oSTEM WSClient Definitions
+description = Provides custom WSClient service definitions
+package = oSTEM Modules
+core = 7.x
+dependencies[] = wsclient_soap
+files[] = ostem_wsclient.module

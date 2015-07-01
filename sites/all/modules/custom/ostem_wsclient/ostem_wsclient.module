@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Implements hook_default_wsclient_service()
+ */
+function ostem_wsclient_default_wsclient_service() {
+
+    $services = array();
+
+    $azure_conn_str = getenv("CUSTOMCONNSTR_csmstudentapi");
+    $azure_conn_array = array();
+    $parts = explode(";", $azure_conn_str);
+    foreach($parts as $part){
+        $temp = explode("=", $part);
+        $azure_conn_array[$temp[0]] = $temp[1];
+    }
+
+    $service = new WSClientServiceDescription();
+    $service->name = 'symplicity_csm_student_api';
+    $service->label = 'Symplicity CSM Student API';
+    $service->url = $azure_conn_array['URL'];
+    $service->type = 'soap';
+
+    $service->settings['options'] = array(
+        'login' => $azure_conn_array['User'],
+        'password' => $azure_conn_array['Password']
+        );
+
+    try {
+        $service->endpoint()->initializeMetaData();
+        $services[$service->name] = $service;
+    }
+    catch (WSClientException $e) {
+        watchdog('ostem_wsclient', $e->__toString());
+    }
+
+    return $services;
+}

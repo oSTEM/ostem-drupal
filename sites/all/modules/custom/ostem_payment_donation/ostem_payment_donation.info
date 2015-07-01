@@ -1,5 +1,5 @@
 name = oSTEM Payment Donation Form Extension
-description = Extends the Payemnt Donation Form module with custom functionality.
+description = Extends the Payment Donation Form module with custom functionality.
 package = oSTEM Modules
 core = 7.x
 dependencies[] = payment_donation
